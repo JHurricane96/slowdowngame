@@ -1,0 +1,7 @@
+{
+  "generator-phaser": {
+    "projectName": "panda",
+    "esVersion": 6,
+    "gameFolder": "game"
+  }
+}
