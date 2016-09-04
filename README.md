@@ -7,12 +7,14 @@ Build Instructions
 ------------------
 
 1. Install npm.
-2. Run `npm install -g yo generator-phaser`.
-3. Run `npm start` to start a demo server.
-4. Run `npm run build` to build the game.
+2. `cd` to the root directory of the project.
+3. Run `npm install` to install dependencies.
+4. Run `npm start` to start a demo server.
+5. Run `npm run build` to build the game.
 
 Developing
 ----------
 
+* Run `npm install -g yo generator-phaser`.
 * Run `yo phaser:prefab` to create a prefab.
 * Run `yo phaser:state` to create a state.
