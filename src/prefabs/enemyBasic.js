@@ -18,12 +18,13 @@ class EnemyBasic extends Phaser.Sprite {
     this.maxTimeToSee = 400; //In milliseconds
     this.timeToSee = Infinity;
     this.isShooting = false;
+    this.oldVelocity = this.body.velocity.clone();
 
     this.weapon = game.add.weapon(2, "bullet");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
     this.weapon.bulletSpeed = 3000;
     this.weapon.bulletGravity.set(0);
-    this.weapon.trackSprite(this, this.width, this.height / 2);
+    this.weapon.trackSprite(this, this.width / 2, this.height / 2);
   }
 
   //Load operations (uses Loader), method called first
@@ -77,10 +78,15 @@ class EnemyBasic extends Phaser.Sprite {
         }
         else {
           this.timeToFire = this.maxTimeToFire;
+          this.oldVelocity.copyFrom(this.body.velocity);
+          this.body.velocity.set(0);
         }
         this.losToPlayer = new Phaser.Line(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y);
       }
       else {
+        if (this.losToPlayer !== null) {
+          this.body.velocity.copyFrom(this.oldVelocity);
+        }
         this.losToPlayer = null;
         this.timeToFire = Infinity;
       }
@@ -90,7 +96,9 @@ class EnemyBasic extends Phaser.Sprite {
   fireBullet() {
     const playerPos = this.player.getCenter();
     this.weapon.fireAtXY(playerPos.x, playerPos.y);
-    this.weapon.bullets.children[this.weapon.bullets.children.length - 1].body.allowGravity = false;
+    for (const bullet of this.weapon.bullets.children) {
+      bullet.body.allowGravity = false;
+    }
     this.isShooting = true;
     this.timeToSee = this.maxTimeToSee;
   }
