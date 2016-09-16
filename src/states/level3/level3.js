@@ -146,10 +146,10 @@ class Level1 extends Phaser.State {
   handleBulletCollisions() {
     for (const enemy of this.enemies) {
 
-      // this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
-      //   bullet.kill();
-      //   this.game.state.start("gameover");
-      // }, null, this);
+      this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
+        bullet.kill();
+        this.game.state.start("gameover");
+      }, null, this);
 
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
         bullet.kill();
@@ -158,10 +158,10 @@ class Level1 extends Phaser.State {
 
     for (const waveEnemy of this.waveEnemies) {
 
-      // this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
-      //   bullet.kill();
-      //   this.game.state.start("gameover");
-      // }, null, this);    	
+      this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
+        bullet.kill();
+        this.game.state.start("gameover");
+      }, null, this);    	
       
       this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
         bullet.kill();
