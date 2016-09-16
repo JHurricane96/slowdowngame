@@ -39,7 +39,12 @@ class Level2 extends Phaser.State {
     var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
 
-    // game.sound.setDecodedCallback([ raygun , loudbang ], start, this);
+    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
+    var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+
+    key.raygun.onDown.add(() => { raygun.play(); }, this);
+
+  }, this);
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
@@ -53,7 +58,6 @@ class Level2 extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
-    //this.game.add.existing(sword);
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
@@ -81,7 +85,6 @@ class Level2 extends Phaser.State {
       newEnemy.cacheObstacles(this.obstacles);
       newEnemy.cachePlayer(this.player);
       this.game.add.existing(newEnemy);
-      console.log("hi" , newEnemy.constructor.name);
       this.enemies.push(newEnemy);
     }
 
@@ -94,14 +97,12 @@ class Level2 extends Phaser.State {
       newEnemy.cacheObstacles(this.obstacles);
       newEnemy.cachePlayer(this.player);
       this.game.add.existing(newEnemy);
-      console.log("hi" , newEnemy.constructor.name);
       this.enemies.push(newEnemy);
     }
 
     this.bullets = [];
     
   }
-
   //Code ran on each frame of game
   update() {
     this.bitmapImg.x = this.game.camera.x;
