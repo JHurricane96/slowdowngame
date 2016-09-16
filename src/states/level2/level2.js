@@ -24,6 +24,9 @@ class Level2 extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
+    this.game.load.audio('raygun', '../../../assets/audio/rayGun.mp3');
+    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+
   }
 
   //Setup code, method called after preload
@@ -33,10 +36,16 @@ class Level2 extends Phaser.State {
     this.world.height = 5080;
     this.game.physics.arcade.gravity.y = 1400;
 
+    var raygun = this.game.add.audio('raygun');
+    var loudbang = this.game.add.audio('loudbang');
+
+    // game.sound.setDecodedCallback([ raygun , loudbang ], start, this);
+
+
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game,1300,1300 );//50700
+    this.player = new Player(this.game,50,700 );//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
