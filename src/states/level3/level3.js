@@ -37,7 +37,7 @@ class Level1 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game, 1500, 7000 - 6000);
+    this.player = new Player(this.game, 900, 6800);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
