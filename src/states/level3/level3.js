@@ -24,7 +24,7 @@ class Level1 extends Phaser.State {
 
   //Load operations (uses Loader), method called first
   preload() {
-     this.game.load.audio('raygun', '../../../assets/audio/rayGun.mp3');
+     this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
      this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
   }
 
