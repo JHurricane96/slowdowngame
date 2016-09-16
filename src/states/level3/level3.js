@@ -188,7 +188,6 @@ class Level1 extends Phaser.State {
     for (const line of linesToPlayer) {
       this.bitmap.context.strokeStyle = "red";
       this.bitmap.context.beginPath();
-      console.log(line.start, line.end);
       this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
       this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
       this.bitmap.context.stroke();
