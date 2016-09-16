@@ -55,7 +55,7 @@ class Player extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
-    console.log(this.body.position.x,this.body.position.y);
+    //console.log(this.body.position.x,this.body.position.y);
     this.game.camera.follow(this);
     const controls = this.game.global.controls;
     if (controls.down.isDown) {
