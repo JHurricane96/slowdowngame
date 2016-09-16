@@ -117,6 +117,7 @@ class Player extends Phaser.Sprite {
       setTimeout( () => { this.game.input.enabled = true; console.log(this.game.input.enabled);} , 4000);
       
     }
+  }
 
   handleOverlap(obstacle) {
     const width = Math.abs(this.width);

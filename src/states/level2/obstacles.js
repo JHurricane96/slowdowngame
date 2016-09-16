@@ -36,21 +36,21 @@ const obstacles = [
 	},
 	{
 		x: 300,
-		y: 750,
+		y: 850,
 		width: 100,
-		height: 400
+		height: 200
 
 	},
 	{
 		x: 600,
-		y: 800,
+		y: 900,
 		width: 40,
 		height: 350
 
 	},
 	{
 		x: 600,
-		y: 800,
+		y: 900,
 		width: 70,
 		height: 40
 
@@ -82,17 +82,26 @@ const obstacles = [
 		width: 70,
 		height: 250
 
-	},{
+	},
+	{
 		x: 1200,
 		y: 1250,
 		width: 70,
 		height: 250
 
-	},{
+	},
+	{
 		x: 1500,
 		y: 1250,
 		width: 70,
-		height: 250
+		height: 450
+
+	},
+	{
+		x: 1500,
+		y: 1700,
+		width: 600,
+		height: 50
 
 	},
 	{
@@ -285,10 +294,10 @@ const obstacles = [
 
 	},
 	{
-		x: 3000,
-		y: 2200,
+		x: 3600,
+		y: 2000,
 		width: 50,
-		height: 550
+		height: 750
 
 	},
 	{
@@ -299,7 +308,7 @@ const obstacles = [
 
 	},
 	{
-		x: 2800,
+		x: 3400,
 		y: 2500,
 		width: 200,
 		height: 40
@@ -307,9 +316,9 @@ const obstacles = [
 	},
 	{
 		x: 1500,
-		y: 2200,
+		y: 1500,
 		width: 50,
-		height: 700
+		height: 1400
 
 	},
 	{

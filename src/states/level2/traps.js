@@ -6,13 +6,7 @@ const traps = [
 		height: 40
 
 	},
-	{
-		x: 3000,
-		y: 1900,
-		width: 300,
-		height: 50
-
-	},
+	
 	
 ];
 
