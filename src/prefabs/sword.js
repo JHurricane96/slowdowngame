@@ -4,11 +4,15 @@ class Sword extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, frame) {
-    super(game, x, y, "bullet", frame);
+    super(game, x, y, "bullet", frame);;
+    this.anchor.setTo(0.5, 0.5);
+    this.scale.x = 3;
 
     this.game.physics.arcade.enableBody(this);
     this.body.allowGravity = false;
     this.body.immovable = true;
+    this.body.syncBounds = true;
+    //this.body.setSize(this.width, this.height, 1, 1);
   }
 
   //Load operations (uses Loader), method called first

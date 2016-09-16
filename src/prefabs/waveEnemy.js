@@ -1,16 +1,22 @@
 import Raycaster from "../utils/raycaster";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
-class EnemyBasic extends Phaser.Sprite {
+class WaveEnemy extends Phaser.Sprite {
 
   //initialization code in the constructor
-  constructor(game, x, y, initVelocity, frame) {
-    super(game, x, y, 'crosshairs', frame);
+  //_____POS1 and POS2____________
+  constructor(game, x, y, initVelocity, pos1, pos2, currentPos, frame) {
+    //_______________________
+    super(game, x, y, 'crosshairs2', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
 
     this.initVelocity = initVelocity;
+    this.pos1 = pos1;
+    this.pos2 = pos2;
+    this.currentPos = currentPos;
+
     this.raycaster = new Raycaster();
     this.losToPlayer = null;
     this.maxTimeToFire = 600; //In milliseconds
@@ -20,7 +26,7 @@ class EnemyBasic extends Phaser.Sprite {
     this.isShooting = false;
     this.oldVelocity = this.body.velocity.clone();
 
-    this.weapon = game.add.weapon(2, "bullet");
+    this.weapon = game.add.weapon(2, "block2");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
     this.weapon.bulletSpeed = 3000;
     this.weapon.bulletGravity.set(0);
@@ -148,4 +154,4 @@ class EnemyBasic extends Phaser.Sprite {
 
 }
 
-export default EnemyBasic;
+export default WaveEnemy;
