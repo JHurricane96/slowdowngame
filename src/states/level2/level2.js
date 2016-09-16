@@ -28,7 +28,7 @@ class Level2 extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
-    this.game.world.setBounds(0, 0, 5000, 5000);
+    this.game.world.setBounds(0, 0, 4000, 3500);
     this.world.width = 5000;
     this.world.height = 5080;
     this.game.physics.arcade.gravity.y = 1400;
@@ -36,7 +36,7 @@ class Level2 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game,2100,3100 );//50700
+    this.player = new Player(this.game,1300,1300 );//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
