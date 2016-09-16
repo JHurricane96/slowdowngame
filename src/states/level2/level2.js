@@ -54,7 +54,7 @@ class Level2 extends Phaser.State {
 
     //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
-    sword.y -= sword.height / 2;
+    sword.x += sword.width / 2;
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
@@ -108,6 +108,7 @@ class Level2 extends Phaser.State {
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.handleBulletCollisions();
+    this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.overlap(this.player, this.traps, this.player.trapped, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
