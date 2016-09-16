@@ -28,7 +28,7 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
   //Load operations (uses Loader), method called first
   preload() {
-
+     this.game.load.audio('bullet', '../../assets/audio/bullet.mp3');
   }
 
   //Setup code, method called after preload
@@ -93,6 +93,10 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
 
   fireBullet() {
+     var b = this.game.add.audio('bullet');
+      this.game.sound.setDecodedCallback([ b ], () => {
+     }, this);
+    b.play();
     const playerPos = this.player.getCenter();
     if(this.body.position.x<playerPos.x)
       this.weapon.fireAtXY(playerPos.x-20, playerPos.y+10);
