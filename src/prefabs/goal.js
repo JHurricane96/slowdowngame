@@ -1,17 +1,22 @@
+
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
-class EnemyNav extends Phaser.Sprite {
+class Goal extends Phaser.TileSprite {
 
   //initialization code in the constructor
-  constructor(game, x, y, width, height, frame) {
-    super(game, x, y, null, frame);
-
-    this.renderable = false;
-    this.width = width;
-    this.height = height;
+  constructor(game, x, y, width, height, name) {
+    super(game, x, y, width, height, name);
+    this.name = name;
 
     this.game.physics.arcade.enableBody(this);
     this.body.allowGravity = false;
     this.body.immovable = true;
+
+    this.edges = [
+      new Phaser.Line(x, y, x + width, y),
+      new Phaser.Line(x, y, x, y + height),
+      new Phaser.Line(x + width, y, x + width, y + height),
+      new Phaser.Line(x, y + height, x + width, y + height)
+    ];
   }
 
   //Load operations (uses Loader), method called first
@@ -27,6 +32,11 @@ class EnemyNav extends Phaser.Sprite {
   //Code ran on each frame of game
   update() {
 
+  }
+
+  //Returns edges
+  getEdges() {
+    return this.edges;
   }
 
   //Called when game is paused
@@ -46,4 +56,4 @@ class EnemyNav extends Phaser.Sprite {
 
 }
 
-export default EnemyNav;
+export default Goal;

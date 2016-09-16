@@ -1,4 +1,4 @@
-class Gameover extends Phaser.State {
+class Nextlevel extends Phaser.State {
 
   constructor() {
     super();
@@ -7,7 +7,7 @@ class Gameover extends Phaser.State {
   create() {
 
     //add text
-    this.gameoverText = this.add.text(this.game.camera.width / 2, this.game.camera.height / 2, "You died :(\nClick to restart", {
+    this.gameoverText = this.add.text(this.game.camera.width / 2, this.game.camera.height / 2, "Level up!! Click to contiue", {
       font: '42px Arial', fill: '#ffffff', align: 'center'
     });
     this.gameoverText.anchor.set(0.5);
@@ -23,9 +23,9 @@ class Gameover extends Phaser.State {
 
   onInputDown () {
     if(this.canContinueToNextState){
-      this.game.state.start('level2');
+      this.game.state.start('level3');
     }
   }
 }
 
-export default Gameover;
+export default Nextlevel;

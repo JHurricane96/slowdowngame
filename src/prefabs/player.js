@@ -55,6 +55,7 @@ class Player extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
+    console.log(this.body.position.x,this.body.position.y);
     this.game.camera.follow(this);
     const controls = this.game.global.controls;
     if (controls.down.isDown) {
@@ -103,6 +104,16 @@ class Player extends Phaser.Sprite {
   grounded(player, obstacle) {
     if (obstacle.body.position.y >= player.body.bottom) {
       this.jumping = false;
+    }
+  }
+
+  trapped(player, obstacle) {
+    if (obstacle.body.position.y >= player.body.top) {
+      //this.jumping = false;
+      this.game.input.enabled = false;
+      console.log(this.game.input.enabled);
+      setTimeout( () => { this.game.input.enabled = true; console.log(this.game.input.enabled);} , 4000);
+      
     }
   }
 
