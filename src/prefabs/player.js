@@ -7,11 +7,11 @@ class Player extends Phaser.Sprite {
     super(game, x, y, 'crosshairs', frame);
 
     //custom attributes
-    this.accelerationMagnitude = 1400;
+    this.accelerationMagnitude = 3000;
     this.jumping = false;
     this.keyPressCount = 0;
     this.isFacingRight = true;
-    this.friction = 1400;
+    this.friction = 2000;
 
     //physics initialization
     this.game.physics.arcade.enableBody(this);
