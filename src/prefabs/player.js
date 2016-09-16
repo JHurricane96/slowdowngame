@@ -7,15 +7,15 @@ class Player extends Phaser.Sprite {
     super(game, x, y, 'crosshairs', frame);
 
     //custom attributes
-    this.accelerationMagnitude = 1400;
+    this.accelerationMagnitude = 3000;
     this.jumping = false;
     this.keyPressCount = 0;
     this.isFacingRight = true;
+    this.friction = 2000;
 
     //physics initialization
     this.game.physics.arcade.enableBody(this);
     this.body.maxVelocity = new Phaser.Point(400, 1000);
-    this.friction = 1400;
     this.body.collideWorldBounds = true;
     this.anchor.setTo(0.5, 0);
 
@@ -59,7 +59,7 @@ class Player extends Phaser.Sprite {
     this.game.camera.follow(this);
     const controls = this.game.global.controls;
     if (controls.down.isDown) {
-      this.body.velocity.y += this.accelerationMagnitude * this.game.time.physicsElapsed;
+      this.body.velocity.y += this.accelerationMagnitude * this.game.time.physicsElapsed * 2.5;
     }
     if (controls.left.isDown && (controls.right.isUp || (controls.left.timeDown > controls.right.timeDown))) {
       this.body.velocity.x -= this.accelerationMagnitude * this.game.time.physicsElapsed;
@@ -91,6 +91,7 @@ class Player extends Phaser.Sprite {
     else {
       this.scale.x = 1;
     }
+    this.sword.update();
   }
 
   //Get center of player
@@ -107,6 +108,7 @@ class Player extends Phaser.Sprite {
     }
   }
 
+
   trapped(player, obstacle) {
     if (obstacle.body.position.y >= player.body.top) {
       //this.jumping = false;
@@ -115,6 +117,18 @@ class Player extends Phaser.Sprite {
       setTimeout( () => { this.game.input.enabled = true; console.log(this.game.input.enabled);} , 4000);
       
     }
+
+  handleOverlap(obstacle) {
+    const width = Math.abs(this.width);
+    if (obstacle.world.x > this.world.x) {
+      this.world.x = obstacle.world.x - width - 1;
+      this.body.velocity.x = 0;
+    }
+    else {
+      this.world.x = obstacle.world.x + width + 1;
+      this.body.velocity.x = 0;
+    }
+    this.body.position.copyFrom(this.toLocal(this.world, this));
   }
 
   increaseKeyPressCount() {

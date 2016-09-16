@@ -1,21 +1,20 @@
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
-class Obstacle extends Phaser.TileSprite {
+class Fire extends Phaser.Sprite {
 
   //initialization code in the constructor
-  constructor(game, x, y, width, height, name) {
-    super(game, x, y, width, height, name);
-    this.name = name;
+  constructor(game, x, y, frame) {
+    super(game, x, y, 'block2', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.allowGravity = false;
     this.body.immovable = true;
 
     this.edges = [
-      new Phaser.Line(x, y, x + width, y),
-      new Phaser.Line(x, y, x, y + height),
-      new Phaser.Line(x + width, y, x + width, y + height),
-      new Phaser.Line(x, y + height, x + width, y + height)
+      new Phaser.Line(x, y, x + 25, y),
+      new Phaser.Line(x, y, x, y + 25),
+      new Phaser.Line(x + 25, y, x + 25, y + 25),
+      new Phaser.Line(x, y + 25, x + 25, y + 25)
     ];
   }
 
@@ -26,6 +25,7 @@ class Obstacle extends Phaser.TileSprite {
 
   //Setup code, method called after preload
   create() {
+
   }
 
   //Code ran on each frame of game
@@ -55,4 +55,4 @@ class Obstacle extends Phaser.TileSprite {
 
 }
 
-export default Obstacle;
+export default Fire;

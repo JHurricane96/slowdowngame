@@ -6,6 +6,12 @@ import Sword from "../../prefabs/sword";
 import obstacles from "./obstacles";
 import enemyNavs from "./enemyNavs";
 import enemies from "./enemies";
+import Fire from "../../prefabs/fire"
+import fires from "./fires"
+import WaveEnemy from "../../prefabs/waveEnemy"
+import waveEnemies from "./waveEnemies"
+//import GroupEnemy from "../../prefabs/groupEnemy"
+//import groupEnemies from "./groupEnemies"
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
@@ -23,15 +29,15 @@ class Level1 extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
-    this.game.world.setBounds(0, 0, 1920, 1080);
-    this.world.width = 1920;
-    this.world.height = 1080;
-    this.game.physics.arcade.gravity.y = 1400;
+    this.game.world.setBounds(0, 0, 2575, 7000);
+    this.world.width = 2575;
+    this.world.height = 7000;
+    this.game.physics.arcade.gravity.y = 1900;
 
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
+    this.player = new Player(this.game, 900, 6800);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -43,7 +49,18 @@ class Level1 extends Phaser.State {
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
+      if(obstacle.type == "tree")
+      	var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "tree");
+     
+      else if (obstacle.type == "floor")
+      	var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "floor");
+      else if(obstacle.type == "top")
+		var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "top");      
+	  else {
+		var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leaves");
+        newObstacle.body.checkCollision.down = false;
+	  }
+
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
@@ -64,18 +81,48 @@ class Level1 extends Phaser.State {
       this.enemies.push(newEnemy);
     }
 
+    this.waveEnemies = [];
+    for (const enemy of waveEnemies) {
+      const newEnemy = new WaveEnemy(this.game, enemy.position1.x, enemy.position1.y, enemy.vel, enemy.position1, enemy.position2, 1);
+      newEnemy.cacheObstacles(this.obstacles);
+      newEnemy.cachePlayer(this.player);
+      this.game.add.existing(newEnemy);
+      this.waveEnemies.push(newEnemy);
+    }    
+
+
+  //ADD GROUP ENEMIES CODE
+
+
+    this.fires = [];
+    for (const fire of fires) {
+      const newFire = new Fire(this.game, fire.x, fire.y);
+      this.game.add.existing(newFire);
+      this.fires.push(newFire);    	
+    }
+
     this.bullets = [];
   }
 
   //Code ran on each frame of game
   update() {
-    //this.handleBulletCollisions();
+    this.handleBulletCollisions();
     this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
+
+    this.game.physics.arcade.collide(this.player, this.fires, (player, fires) => {
+        fires.kill();
+        this.game.state.start("gameover");
+      }, null, this);
+
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
       enemy.reverseDirection(enemyNav);
     });
+    this.game.physics.arcade.collide(this.waveEnemies, this.obstacles);
+    this.game.physics.arcade.collide(this.waveEnemies, this.enemyNavs, (enemy, enemyNav) => {
+      enemy.reverseDirection(enemyNav);
+    });    
     const remainingEnemies = [];
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
@@ -98,13 +145,37 @@ class Level1 extends Phaser.State {
   //Handles bullet collisions with obstacles and player
   handleBulletCollisions() {
     for (const enemy of this.enemies) {
+
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
         this.game.state.start("gameover");
       }, null, this);
+
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
         bullet.kill();
-      });
+      });    
+    }
+
+    for (const waveEnemy of this.waveEnemies) {
+
+      this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
+        bullet.kill();
+        this.game.state.start("gameover");
+      }, null, this);    	
+      
+      this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
+        bullet.kill();
+        if(waveEnemy.currentPos == 1) {
+        	waveEnemy.x = waveEnemy.pos2.x;
+        	waveEnemy.y = waveEnemy.pos2.y;
+        	waveEnemy.currentPos = 2;
+        } else {
+        	waveEnemy.x = waveEnemy.pos1.x;
+        	waveEnemy.y = waveEnemy.pos1.y;
+        	waveEnemy.currentPos = 1;        	
+        }
+
+      });     	
     }
   }
 
