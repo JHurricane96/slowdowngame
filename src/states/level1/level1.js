@@ -23,7 +23,7 @@ class Level1 extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
-    this.game.world.setBounds(0, 0, 1920, 1080);
+    this.game.world.setBounds(0, 0, 19200, 1080);
     this.world.width = 1920;
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
@@ -35,11 +35,13 @@ class Level1 extends Phaser.State {
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
+    //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
-    sword.x += sword.width / 2;
+    sword.y -= sword.height / 2;
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
+    //this.game.add.existing(sword);
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
@@ -69,8 +71,7 @@ class Level1 extends Phaser.State {
 
   //Code ran on each frame of game
   update() {
-    //this.handleBulletCollisions();
-    this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    this.handleBulletCollisions();
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
@@ -84,6 +85,7 @@ class Level1 extends Phaser.State {
         remainingEnemies.push(enemy);
       }
     }
+    //this.game.physics.arcade.collide(this.player, this.enemies);
 
     const linesToPlayer = [];
     for (const enemy of this.enemies) {
