@@ -85,6 +85,10 @@ class EnemyBoomeerang extends Phaser.Sprite {
         this.timeToFire = Infinity;
       }
     }
+    else if (this.isShooting === false) {
+      this.losToPlayer = null;
+      this.timeToFire = Infinity;
+    }
   }
 
 
