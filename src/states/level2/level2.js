@@ -11,6 +11,7 @@ import traps from './traps.js';
 import enemyNavs from "./enemyNavs";
 import enemies from "./enemies";
 import spl from "./enemy1";
+import Score from "../../utils/scoreboard";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level2 extends Phaser.State {
@@ -51,6 +52,8 @@ class Level2 extends Phaser.State {
     this.player = new Player(this.game,1900,3100);//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
+
+    this.score=new Score(this.game);
 
     //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
@@ -117,6 +120,10 @@ class Level2 extends Phaser.State {
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
       enemy.reverseDirection(enemyNav);
     });
+    this.game.physics.arcade.overlap(this.player,this.goal,()=>{
+           this.game.state.start("dialogL4");
+        });
+
 
   this.game.physics.arcade.collide(this.player, this.goal, () => {
         this.game.state.start("level3");
@@ -126,12 +133,16 @@ class Level2 extends Phaser.State {
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
+          if(enemy.constructor.name == "EnemyBasic"){
+            this.score.killEnemy("basic");
+          }
+          else if(enemy.constructor.name == "EnemyBoomerang"){
+            this.score.killEnemy("boomerang");
+          }
         }) === false) {
         remainingEnemies.push(enemy);
       }
     }
-
-    //this.game.physics.arcade.collide(this.player, this.enemies);
 
     const linesToPlayer = [];
     for (const enemy of this.enemies) {
@@ -164,6 +175,7 @@ class Level2 extends Phaser.State {
       }
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
+        this.score.die();
         this.game.state.start("gameover");
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
