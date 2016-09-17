@@ -28,7 +28,7 @@ class WaveEnemy extends Phaser.Sprite {
 
     this.weapon = game.add.weapon(2, "block2");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
-    this.weapon.bulletSpeed = 3000;
+    this.weapon.bulletSpeed = 700;
     this.weapon.bulletGravity.set(0);
     this.weapon.trackSprite(this, this.width / 2, this.height / 2);
   }
