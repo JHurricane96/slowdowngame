@@ -1,0 +1,52 @@
+* [33mf6f4d54[m[33m ([m[1;36mHEAD -> [m[1;32mtemp[m[33m)[m Add level
+*   [33m6434c55[m Merge branch 'master' of https://github.com/JHurricane96/slowdowngame into HEAD
+[32m|[m[33m\[m  
+[32m|[m * [33mcbb28c0[m Minor fix in panda position
+[32m|[m * [33m6455d8f[m Add player spritesheet asset
+[32m|[m * [33m7575618[m Slow down wave projectile
+[32m|[m * [33m2a88dd5[m Add walking animations
+[32m|[m * [33m806e898[m Tweak cold level, add enemies
+[32m|[m * [33m77d3927[m Fix enemy shooting sound
+[32m|[m * [33m2a5a452[m Add sound for enemy attack
+[32m|[m * [33m84dbaca[m Add bullet sound asset
+[32m|[m * [33m67e4856[m Add sword sound for 'x'
+[32m|[m * [33m1958e6a[m Add Sword sound asset
+[32m|[m * [33m1b1a8c2[m Add temporary sword sound
+[32m|[m * [33m54fee0c[m Add player-enemy collision to level 2, fix sword position
+[32m|[m * [33m99c55d9[m Fix persisting LOS for out-of-range enemy
+[32m|[m * [33m9eca000[m Add Ray Gun sound
+[32m|[m * [33m412e97c[m Disable traps
+[32m|[m * [33meb6736f[m Optimize level 2 speed
+[32m|[m * [33mafd7ab7[m  Add more enemies:
+[32m|[m *   [33m12d523c[m Merge branch 'master' of https://github.com/JHurricane96/slowdowngame
+[32m|[m [34m|[m[35m\[m  
+[32m|[m [34m|[m * [33m78192a4[m Optimize level 3 speed
+[32m|[m * [35m|[m [33m1530141[m Change player position
+[32m|[m [35m|[m[35m/[m  
+[32m|[m *   [33m41e35d2[m Merge branch 'master' of https://github.com/JHurricane96/slowdowngame
+[32m|[m [36m|[m[1;31m\[m  
+[32m|[m * [1;31m|[m [33mc7c32fa[m Bug fix in obstacle
+* [1;31m|[m [1;31m|[m   [33m427d955[m Merge branch 'master' of https://github.com/JHurricane96/slowdowngame into HEAD
+[1;32m|[m[1;31m\[m [1;31m\[m [1;31m\[m  
+[1;32m|[m [1;31m|[m [1;31m|[m[1;31m/[m  
+[1;32m|[m [1;31m|[m[1;31m/[m[1;31m|[m   
+[1;32m|[m * [1;31m|[m [33mb29b06c[m Add cold country level
+[1;32m|[m [1;31m|[m[1;31m/[m  
+* [1;31m|[m [33m549d7c0[m Add level w/o obs
+[1;31m|[m[1;31m/[m  
+*   [33m6cc3ceb[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m Fix merge conflict
+[1;34m|[m[1;35m\[m  
+[1;34m|[m * [33m85f1747[m not invincible in lv3
+[1;34m|[m * [33mc53f48c[m Add dialog framework
+[1;34m|[m * [33m3a19fde[m lvl 3 modification
+[1;34m|[m *   [33me4809fb[m Merge branch 'master' of https://github.com/JHurricane96/slowdowngame
+[1;34m|[m [1;36m|[m[31m\[m  
+[1;34m|[m [1;36m|[m * [33mdcf6d3d[m coldcountry level
+[1;34m|[m * [31m|[m [33mf29a835[m level 3 - no fire animation
+[1;34m|[m [31m|[m[31m/[m  
+[1;34m|[m * [33mef705a9[m Add enemy-player collisions
+* [31m|[m [33m9ae9fde[m Desert level
+[31m|[m[31m/[m  
+* [33mfd3e38a[m Remove unused state imports
+* [33m137147d[m Correct instructions
+* [33m6c9f639[m First commit
