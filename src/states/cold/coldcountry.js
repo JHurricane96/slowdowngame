@@ -44,7 +44,7 @@ class Coldcountry extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game, 7000, 900);
+    this.player = new Player(this.game, 100, 900);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -54,8 +54,8 @@ class Coldcountry extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
-        const snnow=new Snow(this.game,10,20,"ar");
-      this.game.add.existing(snnow);
+      const snow=new Snow(this.game,10,20);
+      this.game.add.existing(snow);
 
     this.obstacles = [];
     for (const obstacle of obstacles) {

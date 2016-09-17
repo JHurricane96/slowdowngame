@@ -4,7 +4,7 @@ class Snow extends Phaser.Sprite {
   //var back_emitter,i;
   //initialization code in the constructor
   constructor(game, x, y, frame) {
-    super(game, x, y, 'snow', frame);
+    super(game, x, y, 'snowflakes', frame);
    // super();
     //this.back_emitter;
     this.i=0;
