@@ -157,12 +157,12 @@ class Coldcountry extends Phaser.State {
 
   //Code ran on each frame of game
   update() {
-
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
-        this.player.friction=0;
+    this.player.friction=0;
     this.handleBulletCollisions();
-      this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    this.player.isGrounded
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.movableobstacles);

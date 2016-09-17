@@ -83,6 +83,7 @@ class Level1 extends Phaser.State {
   update() {
     //this.handleBulletCollisions();
     this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    this.player.isGrounded = false;
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
