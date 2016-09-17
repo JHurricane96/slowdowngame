@@ -24,12 +24,6 @@ const vanish=[
         y:400,
         width:100,
         height:30
-    },
-    {
-        x:10000,
-        y:450,
-        width:130,
-        height:30
     }
 ];
 

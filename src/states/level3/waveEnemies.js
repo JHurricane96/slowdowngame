@@ -11,7 +11,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},	
@@ -27,7 +27,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},
@@ -42,7 +42,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},
@@ -57,7 +57,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},
@@ -72,7 +72,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},
@@ -87,7 +87,7 @@ const waveEnemies = [
 
 		},
 		vel : {
-			x : 50,
+			x : 0,
 			y : 0
 		},
 	},

@@ -44,9 +44,9 @@ class Snow extends Phaser.Sprite {
 
     this.changeWindDirection();
 
-    this.back_emitter.start(false, 14000, 2);
-    this.mid_emitter.start(false, 12000, 4);
-    this.front_emitter.start(false, 6000, 1);
+    this.back_emitter.start(false, 14000, 10);
+    this.mid_emitter.start(false, 12000, 10);
+    this.front_emitter.start(false, 6000, 10);
   }
 
   //Load operations (uses Loader), method called first

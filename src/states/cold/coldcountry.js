@@ -157,6 +157,12 @@ class Coldcountry extends Phaser.State {
 
   //Code ran on each frame of game
   update() {
+
+
+
+      console.log(this.player.x+"  "+this.player.y);
+
+
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.player.friction=0;

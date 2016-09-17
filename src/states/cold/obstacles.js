@@ -202,8 +202,14 @@ const obstacles = [
 		y:550,
 		width:700,
 		height:30
+	}
+	,
+	{
+		x:10000,
+		y:450,
+		width:130,
+		height:30
 	},
-
 	{
 		x:10400,
 		y:750,

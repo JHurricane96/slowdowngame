@@ -31,7 +31,7 @@ const obstacles = [
     	x : 1200,
     	y : height - 800,
     	width : 200,
-    	height : 250,
+    	height : 200,
         type: "tree"
 	},		
 	{// normal
@@ -82,7 +82,7 @@ const obstacles = [
     	x : 1850,
     	y : height - 1500,
     	width : 200,
-    	height : 525,
+    	height : 475,
         type: "tree"
 	},
 
@@ -102,7 +102,7 @@ const obstacles = [
     	x : 1200,
     	y : height - 1350,
     	width : 200,
-    	height : 350,
+    	height : 300,
         type: "tree"
 	},	
 	{//TREE 2
@@ -180,7 +180,7 @@ const obstacles = [
     	x : 550,
     	y : height - 2450,
     	width : 200,
-    	height : 925,
+    	height : 875,
         type: "tree"
 	},	
 	{//..wave
@@ -212,7 +212,7 @@ const obstacles = [
         x : 1850,
         y : height - 2075,
         width : 200,
-        height : 450,
+        height : 400,
         type: "tree"
     },
     {
@@ -270,7 +270,7 @@ const obstacles = [
         x: 1850,
         y: height -  3175,
         width: 200,
-        height: 900,
+        height: 850,
         type: "tree"
     },
 
@@ -315,14 +315,14 @@ const obstacles = [
     },   
     {
         x : 2500,
-        y : height - 3350,
+        y : height - 3300,
         width : 75,
         height : 475,
         type: "tree"
     }, 
     {//5 end
         x : 2350,
-        y : height - 3400,
+        y : height - 3300,
         width : 225,
         height : 100,
         type: "top"
@@ -348,14 +348,14 @@ const obstacles = [
     }, 
     {//TREE 1
         x : 0,
-        y : height - 3350,
+        y : height - 3300,
         width : 75,
         height : 775,
         type: "tree"
     }, 
     {//tree 1 end
         x : -275,
-        y : height - 3400,
+        y : height - 3300,
         width : 500,
         height : 100,
         type: "top"
@@ -376,7 +376,7 @@ const obstacles = [
         x : 550,
         y : height - 3750,
         width : 200,
-        height : 425,
+        height : 375,
         type: "tree"
     },
     {//Tree 4
@@ -561,6 +561,8 @@ const obstacles = [
         height : 100,
         type: "top"
     },
+
+    
 
     {//fires
         x : 75,
