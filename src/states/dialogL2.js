@@ -14,7 +14,9 @@ class DialogL2 extends Dialog {
       "He thought that he was on the path to peace but suddenly, he felt doubt.",
       "What if he was not leading the world to peace?",
       "What if he was becoming the kind of person he was trying to stop?",
-      "Pondering his actions, he proceeded to the Asian Jungle, to take the Yakuza's lands."
+      "Pondering his actions, he proceeded to the Asian Jungle, to take the Yakuza's lands.",
+      "TIPS\n\nThe mystics of the Yazuka possess strange powers of teleportation, among other things...",
+      "TIPS\n\nThe leafy branches of the forest allow one to pass through from underneath with ease."
     ];
     this.nextLevel = "level3";
   }
