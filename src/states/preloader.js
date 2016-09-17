@@ -32,8 +32,9 @@ class Preloader extends Phaser.State {
     this.game.load.audio('bullet', '../../assets/audio/bullet.mp3');
     this.game.load.image('fire1','../../assets/fire.png');
     //this.game.load.image('fire2',)
-    this.game.load.spritesheet('enemybasic','assets/normalenemy1.png',45,80.5);
-    this.game.load.spritesheet('waveenemy','assets/waveenemy.png',45,80.5);
+    this.game.load.spritesheet('enemybasic','assets/normalenemy1.png',23.33,42);
+    this.game.load.spritesheet('waveenemy','assets/waveenemy.png',23.33,42);
+
   }
 
   onLoadComplete() {
