@@ -7,6 +7,11 @@ class Loginpage extends Phaser.State {
   constructor(game, parent) {
     super(game,parent);
     this.div = document.getElementById("loginpage");
+    this.loginSubmitHandler = this.loginSubmit.bind(this);
+    document.getElementById("loginform").addEventListener("submit", this.loginSubmitHandler);
+    document.getElementById("leaderboardlink").addEventListener("click", () => {
+      this.game.state.start("leaderboard");
+    });
   }
 
   //Load operations (uses Loader), method called first
@@ -18,9 +23,6 @@ class Loginpage extends Phaser.State {
   create() {
     this.div.style.display = "block";
     this.game.stage.backgroundColor = "#FFF";
-
-    this.loginSubmitHandler = this.loginSubmit.bind(this);
-    document.getElementById("loginform").addEventListener("submit", this.loginSubmitHandler);
   }
 
   loginSubmit(event) {

@@ -3,7 +3,7 @@
  import Dialog from './states/dialog';
  import DialogIntro from './states/dialogIntro';
  import Gameover from './states/gameover';
- //import Level1 from './states/level1/level1';
+ import Level1 from './states/level2/level2';
  import Level2 from './states/level2/level2';
  import Level3 from './states/level3/level3';
  import Preloader from './states/preloader';
@@ -22,7 +22,7 @@ const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO,
  game.state.add('dialog', new Dialog());
  game.state.add('dialogIntro', new DialogIntro());
  game.state.add('gameover', new Gameover());
- //game.state.add('level1', new Level1());
+ game.state.add('level1', new Level1());
  game.state.add('level2', new Level2());
  game.state.add('level3', new Level3());
  game.state.add('preloader', new Preloader());

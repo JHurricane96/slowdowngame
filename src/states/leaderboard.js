@@ -6,7 +6,9 @@ class Leaderboard extends Phaser.State {
   //initialization code in the constructor
   constructor(game, parent) {
     super(game,parent);
-    this.div = document.getElementById("leaderboard");
+    document.getElementById("leaderboardtologinpagebutton").addEventListener("click", () => {
+      this.game.state.start("loginpage");
+    });
   }
 
   //Load operations (uses Loader), method called first
@@ -16,8 +18,9 @@ class Leaderboard extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
+    this.div = document.getElementById("leaderboard");
     this.div.style.display = "block";
-    this.div.innerHTML += Handlebars.templates.leaderboard({scores:[{username:"hello", score:1}]});
+    this.div.insertAdjacentHTML("beforeend", Handlebars.templates.leaderboard({scores:[{username:"hello", score:1}]}));
     this.game.stage.backgroundColor = "#FFF";
   }
 
