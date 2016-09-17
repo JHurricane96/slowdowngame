@@ -1,6 +1,6 @@
 const enemies = [
 	{
-		x: 450,
+		x: 550,
 		y: 300,
 		vel: {
 			x: 100,
@@ -8,8 +8,8 @@ const enemies = [
 		}
 	},
 	{
-		x: 200,
-		y: 1000,
+		x: 100,
+		y: 900,
 		vel: {
 			x: 100,
 			y: 0
@@ -17,7 +17,7 @@ const enemies = [
 	},
 	{
 		x: 900,
-		y: 1100,
+		y: 1050,
 		vel: {
 			x: 100,
 			y: 0

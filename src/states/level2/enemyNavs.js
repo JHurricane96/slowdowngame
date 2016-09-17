@@ -12,13 +12,13 @@ const enemyNavs = [
 		height: 20
 	},
 	{
-		x: 400,
+		x: 500,
 		y: 380,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 485,
+		x: 585,
 		y: 380,
 		width: 15,
 		height: 20
@@ -264,7 +264,7 @@ const enemyNavs = [
 		height: 30
 	},
 	{
-		x: 430,
+		x: 280,
 		y: 1130,
 		width: 20,
 		height: 30

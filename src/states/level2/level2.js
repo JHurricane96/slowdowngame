@@ -49,7 +49,7 @@ class Level2 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game,1900,3100);//50700
+    this.player = new Player(this.game,50,600);//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -121,7 +121,7 @@ class Level2 extends Phaser.State {
       enemy.reverseDirection(enemyNav);
     });
     this.game.physics.arcade.overlap(this.player,this.goal,()=>{
-           this.game.state.start("dialogL4");
+           this.game.state.start("dialogL3");
         });
 
 
