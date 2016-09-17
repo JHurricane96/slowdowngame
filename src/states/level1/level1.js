@@ -172,7 +172,6 @@ class Level1 extends Phaser.State {
       this.bitmap.context.stroke();
     }
     this.bitmap.dirty = true;
-    console.log(this.player.position)
   }
 
   //Called when game is paused
