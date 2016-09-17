@@ -8,6 +8,7 @@ class Player extends Phaser.Sprite {
     //custom attributes
     this.accelerationMagnitude = 3000;
     this.jumping = false;
+    this.isGrounded = false;
     this.keyPressCount = 0;
     this.isFacingRight = true;
     this.friction = 2000;
@@ -24,7 +25,7 @@ class Player extends Phaser.Sprite {
     //add controls
     this.game.global.controls.up.onDown.add(() => {
       this.increaseKeyPressCount();
-      if (this.jumping === false) {
+      if (this.jumping === false && this.isGrounded === true) {
         this.jumping = true;
         this.body.velocity.y = -this.body.maxVelocity.y;
       }
@@ -112,6 +113,7 @@ class Player extends Phaser.Sprite {
   grounded(player, obstacle) {
     if (obstacle.body.position.y >= player.body.bottom) {
       this.jumping = false;
+      this.isGrounded = true;
     }
   }
 
