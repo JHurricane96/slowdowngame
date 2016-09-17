@@ -39,7 +39,7 @@ class Level1 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game, 11500, this.game.world.centerY*0);
+    this.player = new Player(this.game, 9000, this.game.world.centerY*0);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
     //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
@@ -114,7 +114,10 @@ class Level1 extends Phaser.State {
   //Code ran on each frame of game
   update() {
     this.handleBulletCollisions();
-    this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
+    this.game.physics.arcade.collide(this.player, this.obstacles, (player) => {
+      player.grounded;
+      player.resetVel(player, 400, 1000);
+    }, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.crates);
     this.game.physics.arcade.collide(this.player, this.buildings);

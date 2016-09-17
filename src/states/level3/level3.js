@@ -6,13 +6,14 @@ import Sword from "../../prefabs/sword";
 import obstacles from "./obstacles";
 import enemyNavs from "./enemyNavs";
 import enemies from "./enemies";
-import Fire from "../../prefabs/fire"
-import fires from "./fires"
-import WaveEnemy from "../../prefabs/waveEnemy"
-import waveEnemies from "./waveEnemies"
-//import GroupEnemy from "../../prefabs/groupEnemy"
-//import groupEnemies from "./groupEnemies"
-import Goal from "../../prefabs/goal"
+import Fire from "../../prefabs/fire";
+import fires from "./fires";
+import WaveEnemy from "../../prefabs/waveEnemy";
+import waveEnemies from "./waveEnemies";
+//import GroupEnemy from "../../prefabs/groupEnemy";
+//import groupEnemies from "./groupEnemies";
+import Goal from "../../prefabs/goal";
+import Score from "../../utils/scoreboard";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
@@ -41,7 +42,9 @@ class Level1 extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-     var raygun = this.game.add.audio('raygun');
+    this.score=new Score(this.game);
+
+    var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
 
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
@@ -129,6 +132,9 @@ class Level1 extends Phaser.State {
 
   //Code ran on each frame of game
   update() {
+
+    console.log(this.score.getScore());
+
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.handleBulletCollisions();
@@ -138,6 +144,7 @@ class Level1 extends Phaser.State {
 
     this.game.physics.arcade.collide(this.player, this.fires, (player, fires) => {
         this.game.state.start("gameover");
+        this.score.die();
       }, null, this);
 
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
@@ -158,6 +165,7 @@ class Level1 extends Phaser.State {
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
+          this.score.killEnemy("basic");
         }) === false) {
         remainingEnemies.push(enemy);
       }
@@ -167,6 +175,7 @@ class Level1 extends Phaser.State {
     for (const enemy of this.waveEnemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
+          this.score.killEnemy("wave");g
         }) === false) {
         remainingWaveEnemies.push(enemy);
       }
@@ -189,6 +198,7 @@ class Level1 extends Phaser.State {
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
         this.game.state.start("gameover");
+        this.score.die();
       }, null, this);
 
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
@@ -201,6 +211,7 @@ class Level1 extends Phaser.State {
       this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
         this.game.state.start("gameover");
+        this.score.die();
       }, null, this);    	
       
       this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
