@@ -28,7 +28,6 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
   //Load operations (uses Loader), method called first
   preload() {
-
   }
 
   //Setup code, method called after preload
@@ -85,10 +84,18 @@ class EnemyBoomeerang extends Phaser.Sprite {
         this.timeToFire = Infinity;
       }
     }
+    else if (this.isShooting === false) {
+      this.losToPlayer = null;
+      this.timeToFire = Infinity;
+    }
   }
 
 
   fireBullet() {
+     var b = this.game.add.audio('bullet');
+      this.game.sound.setDecodedCallback([ b ], () => {
+     }, this);
+    b.play();
     const playerPos = this.player.getCenter();
     if(this.body.position.x<playerPos.x)
       this.weapon.fireAtXY(playerPos.x-20, playerPos.y+10);

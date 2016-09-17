@@ -29,7 +29,6 @@ class EnemyBasic extends Phaser.Sprite {
 
   //Load operations (uses Loader), method called first
   preload() {
-
   }
 
   //Setup code, method called after preload
@@ -98,6 +97,10 @@ class EnemyBasic extends Phaser.Sprite {
   }
 
   fireBullet() {
+    var b = this.game.add.audio('bullet');
+    this.game.sound.setDecodedCallback([ b ], () => {
+  }, this);
+    b.play();
     const playerPos = this.player.getCenter();
     this.weapon.fireAtXY(playerPos.x, playerPos.y);
     for (const bullet of this.weapon.bullets.children) {

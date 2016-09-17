@@ -249,10 +249,8 @@ class Coldcountry extends Phaser.State {
         for (const line of linesToPlayer) {
             this.bitmap.context.strokeStyle = "red";
             this.bitmap.context.beginPath();
-            console.log(line.start.y - this.game.camera.y);
-            const off = 0;
-            this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y + off);
-            this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y + off);
+            this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
+            this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
             this.bitmap.context.stroke();
         }
         this.bitmap.dirty = true;

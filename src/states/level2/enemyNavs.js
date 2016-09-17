@@ -36,37 +36,37 @@ const enemyNavs = [
 		height: 20
 	},
 	{
-		x: 640,
+		x: 670,
 		y: 1480,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 885,
+		x: 870,
 		y: 1480,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 940,
+		x: 970,
 		y: 1480,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 1185,
+		x: 1170,
 		y: 1480,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 1240,
+		x: 1270,
 		y: 1480,
 		width: 15,
 		height: 20
 	},
 	{
-		x: 1485,
+		x: 1470,
 		y: 1480,
 		width: 15,
 		height: 20
@@ -102,7 +102,7 @@ const enemyNavs = [
 		height: 20
 	},
 	{
-		x: 3550,
+		x: 3530,
 		y: 680,
 		width: 15,
 		height: 20
@@ -248,6 +248,12 @@ const enemyNavs = [
 	{
 		x: 2280,
 		y: 3280,
+		width: 15,
+		height: 20
+	},
+	{
+		x: 3580,
+		y: 2730,
 		width: 15,
 		height: 20
 	},
