@@ -7,13 +7,13 @@ const waveEnemies = [
 		},
 		position2 : {
 			x : 8500,
-			y : 50
+			y : 10
 
 		},
 		vel : {
 			x : 0,
 			y : 0
-		},
+		}//,
 	}/*,
 
 	{	

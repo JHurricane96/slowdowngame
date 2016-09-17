@@ -9,7 +9,8 @@ import Stalagmite from "../../prefabs/stalagmite";
 import Vanishobstacle from "../../prefabs/vanishobstacle";
 import Snow from "../../prefabs/snow";
 //import GroupEnemy from "../../prefabs/groupEnemy";
-
+import WaveEnemy from "../../prefabs/waveEnemy"
+import waveEnemies from "./waveEnemies"
 //import groupenemies from "./groupEnemy";
 import vanishobs from "./vanishobstacle";
 import stalagmites from "./stalagmite";
@@ -43,7 +44,7 @@ class Coldcountry extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game, 100, 900);
+    this.player = new Player(this.game, 7000, 900);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -53,8 +54,8 @@ class Coldcountry extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
-    //    const snnow=new Snow(this.game,10,20,"ar");
-    //  this.game.add.existing(snnow);
+        const snnow=new Snow(this.game,10,20,"ar");
+      this.game.add.existing(snnow);
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
@@ -141,6 +142,15 @@ class Coldcountry extends Phaser.State {
           this.enemies.push(newEnemy);
       }
 
+      this.waveEnemies = [];
+      for (const enemy of waveEnemies) {
+          const newEnemy = new WaveEnemy(this.game, enemy.position1.x, enemy.position1.y, enemy.vel, enemy.position1, enemy.position2, 1);
+          newEnemy.cacheObstacles(this.obstacles);
+          newEnemy.cachePlayer(this.player);
+          this.game.add.existing(newEnemy);
+          this.waveEnemies.push(newEnemy);
+      }
+
       this.bullets = [];
   }
 
@@ -160,6 +170,10 @@ class Coldcountry extends Phaser.State {
           enemy.reverseDirection(enemyNav);
   });
 
+      this.game.physics.arcade.collide(this.waveEnemies, this.obstacles);
+      this.game.physics.arcade.collide(this.waveEnemies, this.enemyNavs, (enemy, enemyNav) => {
+          enemy.reverseDirection(enemyNav);
+  });
       const remainingEnemies = [];
       for (const enemy of this.enemies) {
           if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
@@ -195,6 +209,7 @@ class Coldcountry extends Phaser.State {
       this.game.physics.arcade.overlap(this.player,stalag,(player,stalag)=>{
             if(stalag){
                 stalag.killstalag();
+                this.game.state.start("gameover");
 
             }
           });
@@ -238,6 +253,28 @@ class Coldcountry extends Phaser.State {
         }, null, this);
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
                 bullet.kill();
+        });
+        }
+
+        for (const waveEnemy of this.waveEnemies) {
+
+            this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
+                bullet.kill();
+            this.game.state.start("gameover");
+        }, null, this);
+
+            this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
+                bullet.kill();
+            if(waveEnemy.currentPos == 1) {
+                waveEnemy.x = waveEnemy.pos2.x;
+                waveEnemy.y = waveEnemy.pos2.y;
+                waveEnemy.currentPos = 2;
+            } else {
+                waveEnemy.x = waveEnemy.pos1.x;
+                waveEnemy.y = waveEnemy.pos1.y;
+                waveEnemy.currentPos = 1;
+            }
+
         });
         }
     }

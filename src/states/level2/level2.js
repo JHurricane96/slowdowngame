@@ -124,7 +124,6 @@ class Level2 extends Phaser.State {
 
     const remainingEnemies = [];
     for (const enemy of this.enemies) {
-      console.log("hi" , enemy.constructor.name);
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
         }) === false) {

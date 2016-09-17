@@ -1,7 +1,7 @@
 const enemies = [
 	{
 		x: 950,
-		y: 850,
+		y: 800,
 		vel: {
 			x: 100,
 			y: 0
