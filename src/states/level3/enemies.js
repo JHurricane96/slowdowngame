@@ -2,7 +2,7 @@ var height = 7000;
 const enemies = [
 	{
 		x: 1100,
-		y: height - 880,
+		y: height - 930,
 		vel: {
 			x: 100,
 			y: 0
@@ -10,7 +10,7 @@ const enemies = [
 	},
 	{
 		x: 2125,
-		y: height - 1250,
+		y: height - 1300,
 		vel: {
 			x: 100,
 			y: 0
@@ -18,7 +18,7 @@ const enemies = [
 	},
 	{
 		x: 2325,
-		y: height - 1400,
+		y: height - 1450,
 		vel: {
 			x: 100,
 			y: 0
@@ -26,7 +26,7 @@ const enemies = [
 	},
 	{
 		x: 375,
-		y: height - 1750,
+		y: height - 1800,
 		vel: {
 			x: 100,
 			y: 0
@@ -34,7 +34,7 @@ const enemies = [
 	},
 	{
 		x: 150,
-		y: height - 2400,
+		y: height - 2450,
 		vel: {
 			x: 100,
 			y: 0
@@ -42,7 +42,7 @@ const enemies = [
 	},
 	{
 		x: 1475,
-		y: height - 2850,
+		y: height - 2900,
 		vel: {
 			x: 100,
 			y: 0
@@ -50,7 +50,7 @@ const enemies = [
 	},
 	{
 		x: 2125,
-		y: height - 2450,
+		y: height - 2500,
 		vel: {
 			x: 100,
 			y: 0
@@ -58,7 +58,7 @@ const enemies = [
 	},	
 	{
 		x: 2325,
-		y: height - 1750,
+		y: height - 1800,
 		vel: {
 			x: 100,
 			y: 0
@@ -66,7 +66,7 @@ const enemies = [
 	},	
 	{
 		x: 2350,
-		y: height - 3450,
+		y: height - 3500,
 		vel: {
 			x: 100,
 			y: 0
@@ -82,7 +82,7 @@ const enemies = [
 	// },
 	{
 		x: 1025,
-		y: height - 4525,
+		y: height - 4575,
 		vel: {
 			x: 100,
 			y: 0
@@ -90,7 +90,7 @@ const enemies = [
 	},
 	{
 		x: 1475,
-		y: height - 4525,
+		y: height - 4575,
 		vel: {
 			x: 100,
 			y: 0
@@ -98,7 +98,7 @@ const enemies = [
 	},
 	{
 		x: 825,
-		y: height - 4700,
+		y: height - 4750,
 		vel: {
 			x: 100,
 			y: 0
@@ -114,7 +114,7 @@ const enemies = [
 	},
 	{
 		x: 900,
-		y: height - 5400,
+		y: height - 5450,
 		vel: {
 			x: 100,
 			y: 0
@@ -122,7 +122,7 @@ const enemies = [
 	},
 	{
 		x: 1600,
-		y: height - 5400,
+		y: height - 5450,
 		vel: {
 			x: 100,
 			y: 0
