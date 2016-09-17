@@ -10,6 +10,9 @@ import Vanishobstacle from "../../prefabs/vanishobstacle";
 import Snow from "../../prefabs/snow";
 //import GroupEnemy from "../../prefabs/groupEnemy";
 import WaveEnemy from "../../prefabs/waveEnemy"
+import Score from "../../utils/scoreboard";
+import Goal from "../../prefabs/goal";
+
 import waveEnemies from "./waveEnemies"
 //import groupenemies from "./groupEnemy";
 import vanishobs from "./vanishobstacle";
@@ -44,7 +47,11 @@ class Coldcountry extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game, 100,900);
+    this.score=new Score(this.game);
+    this.goal=new Goal(this.game,11458,500,42,42,"crosshairs");
+      this.game.add.existing(this.goal);
+
+    this.player = new Player(this.game, 11000,919.5);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -158,8 +165,8 @@ class Coldcountry extends Phaser.State {
 
 
 
-      console.log(this.player.x+"  "+this.player.y);
-
+      //console.log(this.player.x+"  "+this.player.y);
+        console.log(this.score.getScore());
 
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
@@ -182,6 +189,7 @@ class Coldcountry extends Phaser.State {
       for (const enemy of this.enemies) {
           if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
                   enemy.eliminate();
+                    this.score.killEnemy("basic");
       }) === false) {
               remainingEnemies.push(enemy);
           }
@@ -200,6 +208,7 @@ class Coldcountry extends Phaser.State {
       for (const enemy of this.waveEnemies) {
           if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
                   enemy.eliminate();
+                    this.score.killEnemy("wave");
       }) === false) {
               remainingWaveEnemies.push(enemy);
           }
@@ -223,7 +232,7 @@ class Coldcountry extends Phaser.State {
             if(stalag){
                 stalag.killstalag();
                 this.game.state.start("gameover");
-
+                this.score.die();
             }
           });
       this.game.physics.arcade.overlap(this.obstacles,stalag,(obstacles,stalag)=>{
@@ -262,7 +271,9 @@ class Coldcountry extends Phaser.State {
   });
 
       this.movableobstacles[0].body.position.x += this.game.time.physicsElapsed * this.movableobstacles[0].vel;
-
+        this.game.physics.arcade.overlap(this.player,this.goal,()=>{
+           this.game.state.start("dialogL4");
+        });
 
   }
     //Handles bullet collisions with obstacles and player
@@ -271,6 +282,7 @@ class Coldcountry extends Phaser.State {
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
            this.game.state.start("gameover");
+            this.score.die();
         }, null, this);
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
                 bullet.kill();
@@ -282,6 +294,7 @@ class Coldcountry extends Phaser.State {
             this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
           this.game.state.start("gameover");
+            this.score.die();
         }, null, this);
 
             this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
