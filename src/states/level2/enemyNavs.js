@@ -257,6 +257,18 @@ const enemyNavs = [
 		width: 15,
 		height: 20
 	},
+	{
+		x: 0,
+		y: 1130,
+		width: 20,
+		height: 30
+	},
+	{
+		x: 430,
+		y: 1130,
+		width: 20,
+		height: 30
+	},
 	/*{
 		x: 0,
 		y: 490,
