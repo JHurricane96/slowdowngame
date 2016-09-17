@@ -38,19 +38,18 @@ class Coldcountry extends Phaser.State {
     this.game.world.setBounds(0, 0, 11500, 1080);
     this.world.width = 11500;
     this.world.height = 1080;
-    this.game.physics.arcade.gravity.y = 1400;//11500
+    this.game.physics.arcade.gravity.y = 1400;
 
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game, 100, 900);
+    this.player = new Player(this.game, 100,900);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
-    //sword.y -= sword.height / 2;
-      sword.x+=sword.width/2;
+    sword.x+=sword.width/2;
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
@@ -71,7 +70,6 @@ class Coldcountry extends Phaser.State {
       this.movableobstacles.push(newmovobs);
     }
 
-    //this.movableobstacles[0].position.x=100;
     this.movableobstacles[0].position.x=6200;
 
     this.movableobsNav = [];
@@ -166,9 +164,9 @@ class Coldcountry extends Phaser.State {
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.player.friction=0;
-    this.handleBulletCollisions();
+   this.handleBulletCollisions();
     this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
-    this.player.isGrounded
+    this.player.isGrounded=false;
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.movableobstacles);
@@ -198,6 +196,15 @@ class Coldcountry extends Phaser.State {
       this.drawLines(linesToPlayer);
       this.enemies = remainingEnemies;
 
+      const remainingWaveEnemies = [];
+      for (const enemy of this.waveEnemies) {
+          if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
+                  enemy.eliminate();
+      }) === false) {
+              remainingWaveEnemies.push(enemy);
+          }
+      }
+      this.waveEnemies=remainingWaveEnemies;
 
 
 
@@ -231,10 +238,18 @@ class Coldcountry extends Phaser.State {
     for(const vanishobs of this.vanishobs)
     {
         this.game.physics.arcade.collide(vanishobs,this.player,(vanishobs,player)=>{
-            setTimeout(function(){vanishobs.vanish();},500);
+            if(this.player.y<vanishobs.body.position.y)
+        {
+            setTimeout(function () {
+                    vanishobs.vanish();
+                }
 
-        setTimeout(function(){vanishobs.appear();},5000);
+                , 500);
 
+            setTimeout(function () {
+                vanishobs.appear();
+            }, 5000);
+        }
         });
 
     }
@@ -255,7 +270,7 @@ class Coldcountry extends Phaser.State {
         for (const enemy of this.enemies) {
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
-            this.game.state.start("gameover");
+           this.game.state.start("gameover");
         }, null, this);
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
                 bullet.kill();
@@ -266,7 +281,7 @@ class Coldcountry extends Phaser.State {
 
             this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
-            this.game.state.start("gameover");
+          this.game.state.start("gameover");
         }, null, this);
 
             this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {

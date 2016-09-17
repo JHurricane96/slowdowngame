@@ -58,6 +58,9 @@ class Player extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
+
+
+
     if(this.previousSlowMotionFactor !== this.game.time.slowMotion) {
       this.animations.getAnimation("right").speed = this.animFps / this.game.time.slowMotion;
     }
