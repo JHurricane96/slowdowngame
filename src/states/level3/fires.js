@@ -51,19 +51,6 @@ const fires = [
     	y: height - 700
     },
 
-
-
-
-
-
-	{
-		x: 2100,
-		y: height - 5650
-	},
-	{
-		x: 475,
-		y: height - 5650
-	},
 ];
 function fireTraps (x,y) {
 	for(var i = 0; i < 8; i++)

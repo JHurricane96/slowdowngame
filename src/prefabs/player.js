@@ -6,12 +6,12 @@ class Player extends Phaser.Sprite {
   constructor(game, x, y, frame) {
     super(game, x, y, 'panda', frame);
     //custom attributes
-    this.accelerationMagnitude = 3000;
+    this.accelerationMagnitude = 5000;
     this.jumping = false;
     this.isGrounded = false;
     this.keyPressCount = 0;
     this.isFacingRight = true;
-    this.friction = 2000;
+    this.friction = 3000;
     this.animFps = 10;
     this.previousSlowMotionFactor = this.game.time.slowMotion;
     this.animations.add('right', [4,5,6,7], 10);
