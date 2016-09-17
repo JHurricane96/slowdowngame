@@ -51,7 +51,7 @@ class Coldcountry extends Phaser.State {
     this.goal=new Goal(this.game,11458,500,42,42,"crosshairs");
       this.game.add.existing(this.goal);
 
-    this.player = new Player(this.game, 11000,919.5);
+    this.player = new Player(this.game, 100,919.5);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
