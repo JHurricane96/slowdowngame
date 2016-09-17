@@ -43,7 +43,7 @@ class Preloader extends Phaser.State {
   }
 
   onLoadComplete() {
-    this.game.state.start('cold');
+    this.game.state.start('level2');
   }
 }
 

@@ -15,7 +15,9 @@ class DialogIntro extends Dialog {
     "But Polo was no ordinary panda.",
     "He decided that he would put an end to the terrorism, and all the problems caused by people of different cultures' conflicting desires.",
     "His first thought was to go to a big city, where there was a high risk of terrorism, and figure out how to stop them.",
-    "He decided he would be a good and kind ruler, and that he could take the people of the world to a peaceful time."
+    "He decided he would be a good and kind ruler, and that he could take the people of the world to a peaceful time.",
+    "INSTRUCTIONS\n\nUse arrow keys to move and X to attack. Time slows down when you are not pressing any of the controls.",
+    "TIPS\n\nWhile Polo may be a master of melee combat, enemies prefer a much more modern approach to battle."
     ];
     this.nextLevel = "level1";
   }
