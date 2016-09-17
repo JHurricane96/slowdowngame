@@ -4,8 +4,8 @@ class Player extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, frame) {
-    super(game, x, y, 'crosshairs', frame);
-
+    super(game, x, y, 'panda', frame);
+    this.animations.add('right',[4,5,6,7],10);
     //custom attributes
     this.accelerationMagnitude = 3000;
     this.jumping = false;
@@ -62,10 +62,12 @@ class Player extends Phaser.Sprite {
       this.body.velocity.y += this.accelerationMagnitude * this.game.time.physicsElapsed * 2.5;
     }
     if (controls.left.isDown && (controls.right.isUp || (controls.left.timeDown > controls.right.timeDown))) {
+      this.animations.play('right');
       this.body.velocity.x -= this.accelerationMagnitude * this.game.time.physicsElapsed;
       this.isFacingRight = false;
     }
     else if (controls.right.isDown) {
+      this.animations.play('right');
       this.body.velocity.x += this.accelerationMagnitude * this.game.time.physicsElapsed;
       this.isFacingRight = true;
     }
