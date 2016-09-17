@@ -37,7 +37,7 @@ class Coldcountry extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
-    
+    this.game.stage.backgroundColor = "31627B";//4488AA
     this.game.world.setBounds(0, 0, 11500, 1080);
     this.world.width = 11500;
     this.world.height = 1080;
@@ -48,10 +48,10 @@ class Coldcountry extends Phaser.State {
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
     this.score=new Score(this.game);
-    this.goal=new Goal(this.game,11458,500,42,42,"crosshairs");
+    this.goal=new Goal(this.game,11354,462,146,88,"goal");
       this.game.add.existing(this.goal);
 
-    this.player = new Player(this.game, 100,919.5);
+    this.player = new Player(this.game, 100,919.5);//100,919.5
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -65,7 +65,7 @@ class Coldcountry extends Phaser.State {
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "floor");
+      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "snowplatform");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }

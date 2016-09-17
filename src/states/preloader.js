@@ -36,6 +36,8 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('enemybasic','assets/normalenemy1backup.png',39.33,70);
     this.game.load.spritesheet('waveenemy','assets/waveenemybackup.png',39.33,70);
     this.game.load.image('waves','assets/waves.png',16,25);
+    this.game.load.image('stalagmite','assets/stalagmite1.png',42,35);
+     this.game.load.image('snowplatform','assets/snowplatform.jpg',219,111);
 
   }
 
