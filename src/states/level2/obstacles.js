@@ -198,9 +198,9 @@ const obstacles = [
 	},
 	{
 		x: 3800,
-		y: 400,
+		y: 0,
 		width: 50,
-		height: 1200
+		height: 1600
 
 	},
 	{
