@@ -101,7 +101,7 @@ const obstacles = [
 	},
 	{
 		x:7300,
-		y:980,
+		y:950,
 		width:300,
 		height:20
 	},
@@ -109,7 +109,7 @@ const obstacles = [
 		x:7550,
 		y:800,
 		width:50,
-		height:180
+		height:160
 	},
 	{
 		x:7600,

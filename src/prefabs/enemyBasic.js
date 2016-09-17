@@ -5,7 +5,7 @@ class EnemyBasic extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, initVelocity, frame) {
-    super(game, x, y, 'crosshairs', frame);
+    super(game, x, y, 'enemybasic', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
@@ -19,6 +19,9 @@ class EnemyBasic extends Phaser.Sprite {
     this.timeToSee = Infinity;
     this.isShooting = false;
     this.oldVelocity = this.body.velocity.clone();
+
+    this.animations.add('right', [0,1,2], 5);
+    this.animations.add('left',[3,4,5],5);
 
     this.weapon = game.add.weapon(2, "bullet");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
@@ -53,6 +56,18 @@ class EnemyBasic extends Phaser.Sprite {
     if (this.timeToFire <= 0) {
       this.fireBullet();
     }
+
+    if(this.body.velocity.x>0)
+    this.animations.play('right');
+    else if(this.body.velocity.x<0)
+      this.animations.play('left');
+    else if(this.body.velocity.x==0)
+    {
+      if(this.player.x-this.body.position.x<0)
+        this.frame=3;
+      else this.frame=0;
+    }
+
   }
 
   //Check if player is in enemy's LOS
@@ -123,9 +138,11 @@ class EnemyBasic extends Phaser.Sprite {
   reverseDirection(enemyNav) {
     if (enemyNav.body.position.x > this.body.position.x) {
       this.body.velocity.set(-this.initVelocity.x, this.initVelocity.y);
+
     }
     else {
       this.body.velocity.set(this.initVelocity.x, this.initVelocity.y);
+
     }
   }
 

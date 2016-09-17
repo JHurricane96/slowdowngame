@@ -5,13 +5,15 @@ class Player extends Phaser.Sprite {
   //initialization code in the constructor
   constructor(game, x, y, frame) {
     super(game, x, y, 'panda', frame);
-    this.animations.add('right',[4,5,6,7],10);
     //custom attributes
     this.accelerationMagnitude = 3000;
     this.jumping = false;
     this.keyPressCount = 0;
     this.isFacingRight = true;
     this.friction = 2000;
+    this.animFps = 10;
+    this.previousSlowMotionFactor = this.game.time.slowMotion;
+    this.animations.add('right', [4,5,6,7], 10);
 
     //physics initialization
     this.game.physics.arcade.enableBody(this);
@@ -55,7 +57,9 @@ class Player extends Phaser.Sprite {
 
   //Code ran on each frame of game
   update() {
-    //console.log(this.body.position.x,this.body.position.y);
+    if(this.previousSlowMotionFactor !== this.game.time.slowMotion) {
+      this.animations.getAnimation("right").speed = this.animFps / this.game.time.slowMotion;
+    }
     this.game.camera.follow(this);
     const controls = this.game.global.controls;
     if (controls.down.isDown) {
@@ -93,6 +97,7 @@ class Player extends Phaser.Sprite {
     else {
       this.scale.x = 1;
     }
+    this.previousSlowMotionFactor = this.game.time.slowMotion;
     this.sword.update();
   }
 

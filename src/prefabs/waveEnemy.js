@@ -7,7 +7,7 @@ class WaveEnemy extends Phaser.Sprite {
   //_____POS1 and POS2____________
   constructor(game, x, y, initVelocity, pos1, pos2, currentPos, frame) {
     //_______________________
-    super(game, x, y, 'crosshairs2', frame);
+    super(game, x, y, 'waveenemy', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
@@ -16,6 +16,9 @@ class WaveEnemy extends Phaser.Sprite {
     this.pos1 = pos1;
     this.pos2 = pos2;
     this.currentPos = currentPos;
+
+    this.animations.add('right', [0,1,2], 5);
+    this.animations.add('left',[3,4,5],5);
 
     this.raycaster = new Raycaster();
     this.losToPlayer = null;
@@ -60,6 +63,18 @@ class WaveEnemy extends Phaser.Sprite {
     if (this.timeToFire <= 0) {
       this.fireBullet();
     }
+
+    if(this.body.velocity.x>0)
+      this.animations.play('right');
+    else if(this.body.velocity.x<0)
+      this.animations.play('left');
+    else if(this.body.velocity.x==0)
+    {
+      if(this.player.x-this.body.position.x<0)
+        this.frame=3;
+      else this.frame=0;
+    }
+
   }
 
   //Check if player is in enemy's LOS
