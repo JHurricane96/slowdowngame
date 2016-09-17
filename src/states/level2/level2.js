@@ -120,10 +120,6 @@ class Level2 extends Phaser.State {
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
       enemy.reverseDirection(enemyNav);
     });
-    this.game.physics.arcade.overlap(this.player,this.goal,()=>{
-           this.game.state.start("dialogL3");
-        });
-
 
   this.game.physics.arcade.collide(this.player, this.goal, () => {
         this.game.state.start("level3");
