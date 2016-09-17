@@ -12,6 +12,7 @@ import WaveEnemy from "../../prefabs/waveEnemy"
 import waveEnemies from "./waveEnemies"
 //import GroupEnemy from "../../prefabs/groupEnemy"
 //import groupEnemies from "./groupEnemies"
+import Goal from "../../prefabs/goal"
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
@@ -30,6 +31,7 @@ class Level1 extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
+  	this.game.stage.backgroundColor = "#102C2D";
     this.game.world.setBounds(0, 0, 2575, 7000);
     this.world.width = 2575;
     this.world.height = 7000;
@@ -49,7 +51,7 @@ class Level1 extends Phaser.State {
 
   }, this);
 
-    this.player = new Player(this.game, 900, 6800);
+    this.player = new Player(this.game, 900, 7000 - 200);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -69,8 +71,12 @@ class Level1 extends Phaser.State {
       else if(obstacle.type == "top")
 		var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "top");      
 	  else {
-		var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leaves");
+	  	if(obstacle.width == 200) 
+		  var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leaves");
+		else var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leavesSmall");
         newObstacle.body.checkCollision.down = false;
+        newObstacle.body.checkCollision.left = false;
+        newObstacle.body.checkCollision.right = false;
 	  }
 
       this.game.add.existing(newObstacle);
@@ -102,6 +108,11 @@ class Level1 extends Phaser.State {
       this.waveEnemies.push(newEnemy);
     }    
 
+    this.lvlComplete = [];
+	const newGoal = new Goal(this.game, 1200, 7000 - 5950, 200, 150, "block2");
+	this.game.add.existing(newGoal);
+	this.lvlComplete.push(newGoal);    
+
 
   //ADD GROUP ENEMIES CODE
 
@@ -126,7 +137,6 @@ class Level1 extends Phaser.State {
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
 
     this.game.physics.arcade.collide(this.player, this.fires, (player, fires) => {
-        fires.kill();
         this.game.state.start("gameover");
       }, null, this);
 
@@ -137,7 +147,13 @@ class Level1 extends Phaser.State {
     this.game.physics.arcade.collide(this.waveEnemies, this.obstacles);
     this.game.physics.arcade.collide(this.waveEnemies, this.enemyNavs, (enemy, enemyNav) => {
       enemy.reverseDirection(enemyNav);
-    });    
+    }); 
+
+    this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
+    	alert("hi");
+    	this.game.state.start('cold');
+    }, null, this);
+
     const remainingEnemies = [];
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
@@ -146,6 +162,15 @@ class Level1 extends Phaser.State {
         remainingEnemies.push(enemy);
       }
     }
+
+    const remainingWaveEnemies = [];
+    for (const enemy of this.waveEnemies) {
+      if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
+          enemy.eliminate();
+        }) === false) {
+        remainingWaveEnemies.push(enemy);
+      }
+    }    
 
     const linesToPlayer = [];
     for (const enemy of this.enemies) {
