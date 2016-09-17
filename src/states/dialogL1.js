@@ -8,7 +8,7 @@ class DialogL1 extends Dialog {
     super(game,parent);
     this.dialogs = [
       "So now, Polo, after discovering information about the terrorists' main hideouts, decided to hunt them all down, and kill them at the source.",
-      "The first place, was in the Australian Desert, known for the Calabrian Mafia.",
+      "The first place, was in the Australian Desert, which was home to the Calabrian Mafia who were known for their secret underground dungeons hidden underneath the sand dunes",
       "TIPS\n\nNot all bullets shatter on impact."
     ];
     this.nextLevel = "level2";
