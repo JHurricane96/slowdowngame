@@ -82,7 +82,7 @@ const obstacles = [
     	x : 1850,
     	y : height - 1500,
     	width : 200,
-    	height : 475,
+    	height : 425,
         type: "tree"
 	},
 
@@ -212,7 +212,7 @@ const obstacles = [
         x : 1850,
         y : height - 2075,
         width : 200,
-        height : 400,
+        height : 350,
         type: "tree"
     },
     {

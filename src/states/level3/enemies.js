@@ -57,8 +57,8 @@ const enemies = [
 		}
 	},	
 	{
-		x: 2325,
-		y: height - 1800,
+		x: 2125,
+		y: height - 2000,
 		vel: {
 			x: 100,
 			y: 0
