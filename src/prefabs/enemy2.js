@@ -23,7 +23,7 @@ class EnemyBoomeerang extends Phaser.Sprite {
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
     this.weapon.bulletSpeed = 3000;
     this.weapon.bulletGravity.set(0);
-    this.weapon.trackSprite(this, this.width, this.height / 2);
+    this.weapon.trackSprite(this, this.width/2, this.height / 2);
   }
 
   //Load operations (uses Loader), method called first
