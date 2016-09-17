@@ -1,19 +1,19 @@
 
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
-class Gameover extends Phaser.State {
+class Resumepage extends Phaser.State {
 
   //initialization code in the constructor
   constructor(game, parent) {
     super(game,parent);
-    this.div = document.getElementById("gameover");
-    document.getElementById("gameovernewbutton").addEventListener("click", () => {
-      this.game.global.score = 0;
-      this.game.global.level = 1;
-      this.game.state.start("dialogIntro");
-    });
-    document.getElementById("gameoverresumebutton").addEventListener("click", () => {
+    this.div = document.getElementById("resumepage");
+    document.getElementById("resumepageresumebutton").addEventListener("click", () => {
       this.game.state.start("level" + this.game.global.level);
+    });
+    document.getElementById("resumepagenewbutton").addEventListener("click", () => {
+      this.game.global.level = 1;
+      this.game.global.score = 0;
+      this.game.state.start("dialogIntro");
     });
   }
 
@@ -49,4 +49,4 @@ class Gameover extends Phaser.State {
 
 }
 
-export default Gameover;
+export default Resumepage;

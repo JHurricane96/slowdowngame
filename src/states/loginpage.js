@@ -36,15 +36,35 @@ class Loginpage extends Phaser.State {
     loginRequest.onreadystatechange = () => {
       if (loginRequest.readyState === XMLHttpRequest.DONE) {
         if (loginRequest.status === 200) {
-          const response = JSON.parse(loginRequest.responseText);
-          if (response.status_code === 200) {
-            this.game.state.start("dialogIntro");
+          const loginResponse = JSON.parse(loginRequest.responseText);
+          if (loginResponse.status_code === 200) {
+            console.log(loginResponse);
+            this.game.global.user_id = loginResponse.user_id;
+            this.game.global.token = loginResponse.message;
+
+            const getProgressStatus = new XMLHttpRequest();
+            getProgressStatus.onreadystatechange = () => {
+              if (getProgressStatus.readyState === XMLHttpRequest.DONE) {
+                console.log(getProgressStatus.responseText);
+                if (getProgressStatus.status === 200) {
+                  const progressResponse = JSON.parse(getProgressStatus.responseText);
+                  if (progressResponse.status_code === 200) {
+                    console.log(progressResponse);
+                    //this.game.state.start("dialogIntro");
+                  } 
+                }
+              }
+            }
+
+            getProgressStatus.open("POST", this.game.global.apiBaseUrl + "/user/getgamedetails");
+            getProgressStatus.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            getProgressStatus.send("user_id=" + loginResponse.user_id + "&token=" + loginResponse.message);
           }
         }
       }
     };
-    loginRequest.open('POST', this.game.global.apiBaseUrl + "/auth/app");
-    loginRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    loginRequest.open("POST", this.game.global.apiBaseUrl + "/auth/app");
+    loginRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     loginRequest.send("user_email=" + submitData.user_email + "&user_pass=" + submitData.user_pass);
   }
 
