@@ -3,7 +3,7 @@
  import Dialog from './states/dialog';
  import DialogIntro from './states/dialogIntro';
  import Gameover from './states/gameover';
- import Level1 from './states/level2/level2';
+ import Level1 from './states/level1/level1';
  import Level2 from './states/level2/level2';
  import Level3 from './states/level3/level3';
  import Preloader from './states/preloader';
