@@ -3,11 +3,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 25,
-			y : height - 1950
+			y : height - 2000
 		},
 		position2 : {
 			x : 375,
-			y : height - 2225
+			y : height - 2275
 
 		},
 		vel : {
@@ -19,11 +19,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 10,
-			y : height - 2500
+			y : height - 2550
 		},
 		position2 : {
 			x : 550,
-			y : height - 2500
+			y : height - 2550
 
 		},
 		vel : {
@@ -34,11 +34,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 1475,
-			y : height - 2525
+			y : height - 2575
 		},
 		position2 : {
 			x : 1675,
-			y : height - 2650
+			y : height - 2700
 
 		},
 		vel : {
@@ -49,11 +49,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 2500,
-			y : height - 2800
+			y : height - 2850
 		},
 		position2 : {
 			x : 2125,
-			y : height - 3000
+			y : height - 3050
 
 		},
 		vel : {
@@ -64,11 +64,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 675,
-			y : height - 4900
+			y : height - 4950
 		},
 		position2 : {
 			x : 1025,
-			y : height - 5050
+			y : height - 5100
 
 		},
 		vel : {
@@ -79,11 +79,11 @@ const waveEnemies = [
 	{	
 		position1 : {
 			x : 1875,
-			y : height - 4900
+			y : height - 4950
 		},
 		position2 : {
 			x : 1475,
-			y : height - 5050
+			y : height - 5100
 
 		},
 		vel : {

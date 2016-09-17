@@ -7,11 +7,36 @@
   <!-- build:css main.min.css -->
   <link rel="stylesheet" href="css/main.css">
   <!-- /build -->
+
+  <!-- build:css login.min.css -->
+  <link rel="stylesheet" href="css/login.css">
+  <!-- /build -->
+
 </head>
 
 <body>
 
   <div id="panda-game" class="game"></div>
+
+  <div id="leaderboard" class="state-container">
+    <button id="leaderboardtologinpagebutton">Back</button>
+  </div>
+
+  <div id="loginpage" class="state-container">
+    <h2>log in</h2>
+    <div class="login">
+      <form id="loginform" method="post">
+        <input type="text" name="name" placeholder="username" id="loginname" autocomplete="off" >
+        <br/>
+        <input type="password" name="password"  placeholder="password" id="loginpassword" autocomplete="off">
+        <br/><br/><br/><br/>
+        <input type="submit" class="animated" name="login" value="log in" >
+      </form>
+      <br />
+      <a id="leaderboardlink" class="signup" href="#">leaderboard</a>
+    </div>
+    <br/>
+  </div>
 
   <!-- build:remove -->
   <script src="http://localhost:35729/livereload.js"></script>
@@ -19,6 +44,10 @@
 
   <!-- build:js phaser.min.js -->
   <script src="src/phaser.js"></script>
+  <!-- /build -->
+
+  <!-- build:js handlebars.runtime.min.js -->
+  <script src="node_modules/handlebars/dist/handlebars.runtime.min.js"></script>
   <!-- /build -->
 
   <!-- build:js bundle.min.js -->
