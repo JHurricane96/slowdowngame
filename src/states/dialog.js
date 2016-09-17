@@ -6,6 +6,8 @@ class Dialog extends Phaser.State {
   //initialization code in the constructor
   constructor(game, parent) {
     super(game,parent);
+    this.dialogs = ["hello", "bye"];
+    this.nextLevel = "level1";
   }
 
   //Load operations (uses Loader), method called first
@@ -15,10 +17,9 @@ class Dialog extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
-    this.dialogs = ["hello", "bye"];
     //add text
     this.currentText = this.add.text(this.game.camera.width / 2, this.game.camera.height / 2, this.dialogs[0], {
-      font: '42px Arial', fill: '#ffffff', align: 'center'
+      font: '42px Arial', fill: '#ffffff', align: 'center', wordWrap: true, wordWrapWidth: window.innerWidth * 3 / 4
     });
     this.currentText.anchor.set(0.5);
     this.currentTextIndex = 0;
@@ -35,14 +36,12 @@ class Dialog extends Phaser.State {
   }
 
   onInputDown () {
-    if(this.canContinueToNextState) {
-      if (this.currentTextIndex >= this.dialogs.length) {
-        this.game.state.start('level1');
-      }
-      else {
-        this.currentTextIndex++;
-        this.currentText.setText(this.dialogs[this.currentTextIndex]);
-      }
+    if (this.currentTextIndex >= this.dialogs.length) {
+      this.game.state.start(this.nextLevel);
+    }
+    else {
+      this.currentTextIndex++;
+      this.currentText.setText(this.dialogs[this.currentTextIndex]);
     }
   }
 
