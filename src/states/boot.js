@@ -39,6 +39,7 @@ class Boot extends Phaser.State {
     this.game.global.controls = Object.assign(this.game.input.keyboard.createCursorKeys(), {
       attack: this.game.input.keyboard.addKey(Phaser.Keyboard.X)
     });
+    this.game.global.apiBaseUrl = "https://api.festember.com";
   }
 
 }
