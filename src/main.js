@@ -11,7 +11,9 @@
  import DialogL2 from './states/dialogL2';
  import DialogL3 from './states/dialogL3';
  import DialogL4 from './states/dialogL4';
-
+ import Leaderboard from './states/leaderboard';
+ import Loginpage from './states/loginpage';
+ require("./hbs/leaderboard");
 
 const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'panda-game');
 
@@ -28,5 +30,7 @@ const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO,
  game.state.add('dialogL2', new DialogL2());
  game.state.add('dialogL3', new DialogL3());
  game.state.add('dialogL4', new DialogL4());
+ game.state.add('leaderboard', new Leaderboard());
+ game.state.add('loginpage', new Loginpage());
 
 game.state.start('boot');
