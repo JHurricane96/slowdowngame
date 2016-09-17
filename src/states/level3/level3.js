@@ -109,7 +109,7 @@ class Level1 extends Phaser.State {
     }    
 
     this.lvlComplete = [];
-	const newGoal = new Goal(this.game, 1200, 7000 - 5950, 200, 150, "block2");
+	const newGoal = new Goal(this.game, 1227, 7062 - 5950, 146, 88, "goal");
 	this.game.add.existing(newGoal);
 	this.lvlComplete.push(newGoal);    
 
