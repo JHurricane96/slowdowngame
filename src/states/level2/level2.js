@@ -42,20 +42,17 @@ class Level2 extends Phaser.State {
 
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
     var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
-
-    key.raygun.onDown.add(() => { raygun.play(); }, this);
-
-  }, this);
+      key.raygun.onDown.add(() => { raygun.play(); }, this);
+    }, this);
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game,50,650);//50700
+    this.player = new Player(this.game,3400,400);//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
     this.score=new Score(this.game);
 
-    //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
     sword.x += sword.width / 2;
     sword.kill();
@@ -64,7 +61,7 @@ class Level2 extends Phaser.State {
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
+      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "platform");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
@@ -95,7 +92,7 @@ class Level2 extends Phaser.State {
     const goal = new Goal(this.game , 1800 , 2900 , 146 , 88 , "goal");
     this.game.add.existing(goal);
     this.goal.push(goal);
-    //this.splenemies = [];
+
     for (const enemy of spl) {
       const newEnemy = new EnemyBoomerang(this.game, enemy.x, enemy.y, enemy.vel);
       newEnemy.cacheObstacles(this.obstacles);
@@ -121,11 +118,12 @@ class Level2 extends Phaser.State {
       enemy.reverseDirection(enemyNav);
     });
 
-  this.game.physics.arcade.collide(this.player, this.goal, () => {
-        this.game.state.start("level3");
-      }, null, this);
+    this.game.physics.arcade.collide(this.player, this.goal, () => {
+      this.game.state.start("level3");
+    }, null, this);
 
     const remainingEnemies = [];
+
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
@@ -141,6 +139,7 @@ class Level2 extends Phaser.State {
     }
 
     const linesToPlayer = [];
+
     for (const enemy of this.enemies) {
       if (enemy.losToPlayer !== null && enemy.isShooting === false) {
         linesToPlayer.push(enemy.losToPlayer);
@@ -162,11 +161,12 @@ class Level2 extends Phaser.State {
               bullet.body.velocity.x = 3000;
         });
       }
+
       if(!enemy.isShooting){
         enemy.weapon.bulletSpeed = 3000;
-         this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
-        bullet.kill();
-      });
+        this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
+          bullet.kill();
+        });
         enemy.weapon.trackSprite(enemy, enemy.width, enemy.height / 2);
       }
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
