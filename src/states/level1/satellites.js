@@ -1,9 +1,15 @@
 const satellites = [
 	{
-		x: 12600,
-		y: 900,
-		width:100,
-		height: 80
+		x: 11915,
+		y: 458,
+		width:50,
+		height:50
+	},
+	{
+		x: 9454,
+		y: 458,
+		width:50,
+		height: 50
 	}
 ];	
 

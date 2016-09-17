@@ -3,10 +3,16 @@ import Obstacle from "../../prefabs/obstacle";
 import EnemyNav from "../../prefabs/enemyNav";
 import EnemyBasic from "../../prefabs/enemyBasic";
 import Sword from "../../prefabs/sword";
+import Crate from "../../prefabs/crate";
+import Building from "../../prefabs/building";
+import Satellite from "../../prefabs/satellite";
+
 import obstacles from "./obstacles";
 import enemyNavs from "./enemyNavs";
 import enemies from "./enemies";
-
+import crates from "./crates";
+import buildings from "./buildings";
+import satellites from "./satellites";
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
 
@@ -19,8 +25,6 @@ class Level1 extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
-    this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
-    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
   }
 
   //Setup code, method called after preload
@@ -30,20 +34,10 @@ class Level1 extends Phaser.State {
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
 
-     var raygun = this.game.add.audio('raygun');
-    var loudbang = this.game.add.audio('loudbang');
-
-    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
-    var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
-
-    key.raygun.onDown.add(() => { raygun.play(); }, this);
-
-  }, this);
-
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
 
-    this.player = new Player(this.game, this.game.world.centerX, this.game.world.centerY);
+    this.player = new Player(this.game, 7000, this.game.world.centerY);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -54,13 +48,34 @@ class Level1 extends Phaser.State {
     this.player.sword = sword;
     this.player.addChild(sword);
     //this.game.add.existing(sword);
+    this.crates = [];
+    for (const crate of crates) {
+      const newCrate = new Crate(this.game, crate.x, crate.y, crate.width, crate.height, "crate");
+      this.game.add.existing(newCrate);
+      this.crates.push(newCrate);
+    }
+    this.satellites = [];
+    for (const satellite of satellites) {
+      const newSatellite = new Satellite(this.game, satellite.x, satellite.y, satellite.width, satellite.height, "crosshairs");
+      this.game.add.existing(newSatellite);
+      this.satellites.push(newSatellite);
+    }
 
     this.obstacles = [];
-    for (const obstacle of obstacles) {
+    for (const obstacle of obstacles.slice(0,16)) {
       const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
+    
+
+    this.buildings = [];
+    for (const building of buildings) {
+      const newBuilding = new Building(this.game, building.x, building.y, building.width, building.height, "crosshairs");
+      this.game.add.existing(newBuilding);
+      this.buildings.push(newBuilding);
+    }
+    
 
     this.enemyNavs = [];
     for (const enemyNav of enemyNavs) {
@@ -86,6 +101,12 @@ class Level1 extends Phaser.State {
     this.handleBulletCollisions();
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
+    this.game.physics.arcade.collide(this.player, this.crates);
+    this.game.physics.arcade.collide(this.player, this.buildings);
+    this.game.physics.arcade.collide(this.player, this.satellites, (player, satellites) => {
+      player.setVel(player,20000,10000);
+    });
+    
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
       enemy.reverseDirection(enemyNav);
     });
@@ -133,6 +154,7 @@ class Level1 extends Phaser.State {
       this.bitmap.context.stroke();
     }
     this.bitmap.dirty = true;
+    console.log(this.player.position)
   }
 
   //Called when game is paused

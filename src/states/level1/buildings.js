@@ -1,18 +1,18 @@
 const buildings = [
 	{
-		x: 9700,
+		x: 9100,
 		y: 500,
 		width:400,
 		height: 480
 	},
 	{
-		x: 12150,
+		x: 11550,
 		y: 500,
 		width:400,
 		height: 480
 	},
 	{
-		x: 13645,
+		x: 13045,
 		y: 500,
 		width:400,
 		height: 480

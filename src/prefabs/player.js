@@ -107,10 +107,14 @@ class Player extends Phaser.Sprite {
   grounded(player, obstacle) {
     if (obstacle.body.position.y >= player.body.bottom) {
       this.jumping = false;
+      this.body.maxVelocity = new Phaser.Point(400, 1000);
     }
   }
-
-
+  setVel(player,vx,vy){
+    this.body.maxVelocity = new Phaser.Point(4000, 10000);
+    this.body.velocity.x=vx;
+    this.body.velocity.y=-vy*this.game.time.physicsElapsed;
+  }
   trapped(player, obstacle) {
     if (obstacle.body.position.y >= player.body.top) {
       //this.jumping = false;
