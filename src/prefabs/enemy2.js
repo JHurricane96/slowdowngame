@@ -28,7 +28,6 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
   //Load operations (uses Loader), method called first
   preload() {
-     this.game.load.audio('bullet', '../../assets/audio/bullet.mp3');
   }
 
   //Setup code, method called after preload
