@@ -2,7 +2,7 @@ var height = 7000;
 const enemies = [
 	{
 		x: 1100,
-		y: height - 780,
+		y: height - 880,
 		vel: {
 			x: 100,
 			y: 0
