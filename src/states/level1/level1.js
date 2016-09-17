@@ -114,18 +114,19 @@ class Level1 extends Phaser.State {
   //Code ran on each frame of game
   update() {
     this.handleBulletCollisions();
-    this.game.physics.arcade.collide(this.player, this.obstacles, (player) => {
-      player.grounded;
+    this.player.isGrounded = false;
+    this.game.physics.arcade.collide(this.player, this.obstacles, (player, obstacle) => {
+      player.grounded(player, obstacle);
       player.resetVel(player, 400, 1000);
-    }, null, this.player);
+    });
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.crates);
     this.game.physics.arcade.collide(this.player, this.buildings);
     this.game.physics.arcade.collide(this.player, this.satellites, (player, satellites) => {
-      player.setVel(player,8000,10000);
+      player.setVel(player,8000,23000);
     });
     this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
-      this.game.state.start('level2');
+      this.game.state.start('dialogL1');
     }, null, this);
 
     this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
