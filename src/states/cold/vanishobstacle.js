@@ -30,12 +30,6 @@ const vanish=[
         y:450,
         width:130,
         height:30
-    },
-    {
-        x:10400,
-        y:700,
-        width:130,
-        height:30
     }
 ];
 
