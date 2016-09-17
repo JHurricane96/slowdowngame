@@ -48,7 +48,7 @@ class Level2 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game,50,600 );//50700
+    this.player = new Player(this.game,1900,3100);//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -89,7 +89,8 @@ class Level2 extends Phaser.State {
     }
 
     this.goal= [];
-    const goal = new Goal(this.game , 1850 , 2900 , 100 , 100);
+    const goal = new Goal(this.game , 1950 , 3000 , 146 , 88 , "goal");
+    this.game.add.existing(goal);
     this.goal.push(goal);
     //this.splenemies = [];
     for (const enemy of spl) {
@@ -117,11 +118,9 @@ class Level2 extends Phaser.State {
       enemy.reverseDirection(enemyNav);
     });
 
-  this.game.physics.arcade.collide(this.player, this.goal, (player, goal) => {
-        this.game.state.start("nextlevel");
-      }, null, this.player);
-
-
+  this.game.physics.arcade.collide(this.player, this.goal, () => {
+        this.game.state.start("level3");
+      }, null, this);
 
     const remainingEnemies = [];
     for (const enemy of this.enemies) {

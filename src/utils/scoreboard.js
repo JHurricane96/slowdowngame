@@ -11,8 +11,11 @@ class Scoreboard {
     if (enemyType === "basic") {
       this.game.global.score += 50;
     }
-    else if(enemyType =="boomerang"){
-      this.game.global.score += 70;
+    else if(enemyType == "wave"){
+      this.game.global.score+=100;
+    }
+    else if(enemyType == "boomerang"){
+      this.game.global.score+=100;
     }
   }
 
