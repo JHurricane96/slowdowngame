@@ -123,7 +123,7 @@ class Player extends Phaser.Sprite {
     this.body.velocity.y=-vy*this.game.time.physicsElapsed;
   }
 
-  newVel(player,vx,vy){
+  resetVel(player,vx,vy){
     this.body.maxVelocity = new Phaser.Point(400, 1000);
   }  
 

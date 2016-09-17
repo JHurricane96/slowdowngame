@@ -116,7 +116,7 @@ class Level1 extends Phaser.State {
     this.handleBulletCollisions();
     this.game.physics.arcade.collide(this.player, this.obstacles, (player) => {
       player.grounded;
-      player.newVel(player, 400, 1000);
+      player.resetVel(player, 400, 1000);
     }, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.crates);
@@ -175,7 +175,6 @@ class Level1 extends Phaser.State {
       this.bitmap.context.stroke();
     }
     this.bitmap.dirty = true;
-    console.log(this.player.position)
   }
 
   //Called when game is paused
