@@ -13,6 +13,7 @@
  import DialogL4 from './states/dialogL4';
  import Leaderboard from './states/leaderboard';
  import Loginpage from './states/loginpage';
+ import Resumepage from './states/resumepage';
  require("./hbs/leaderboard");
 
 const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'panda-game');
@@ -32,5 +33,6 @@ const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO,
  game.state.add('dialogL4', new DialogL4());
  game.state.add('leaderboard', new Leaderboard());
  game.state.add('loginpage', new Loginpage());
+ game.state.add('resumepage', new Resumepage());
 
 game.state.start('boot');

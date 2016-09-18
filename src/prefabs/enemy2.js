@@ -5,7 +5,7 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, initVelocity, frame) {
-    super(game, x, y, 'crosshairs', frame);
+    super(game, x, y, 'enemybasic', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
@@ -18,6 +18,9 @@ class EnemyBoomeerang extends Phaser.Sprite {
     this.maxTimeToSee = 400; //In milliseconds
     this.timeToSee = Infinity;
     this.isShooting = false;
+
+    this.animations.add('right', [0,1,2], 5);
+    this.animations.add('left',[3,4,5],5);
 
     this.weapon = game.add.weapon(2, "bullet");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
@@ -49,13 +52,27 @@ class EnemyBoomeerang extends Phaser.Sprite {
       }
     }
     this.sightCheck();
-    if (this.timeToFire <= 0) {
-      this.fireBullet();
-    }
+
+          if (this.timeToFire <= 0) {
+            this.fireBullet();
+          }
+
+          if(this.body.velocity.x>0)
+            this.animations.play('right');
+          else if(this.body.velocity.x<0)
+            this.animations.play('left');
+          else if(this.body.velocity.x==0){
+            if(this.player.x-this.body.position.x<0)
+              this.frame=3;
+            else this.frame=0;
+          }
+
   }
 
   //Check if player is in enemy's LOS
   sightCheck() {
+
+
     if (this.inCamera) {
       const visibleObstacles = [];
       for (const obstacle of this.obstacles) {
