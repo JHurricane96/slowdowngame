@@ -1,7 +1,7 @@
 import Raycaster from "../utils/raycaster";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
-class EnemyBoomeerang extends Phaser.Sprite {
+class EnemyBoomerang extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, initVelocity, frame) {
@@ -9,6 +9,7 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
+    this.enemyType = "boomerang";
 
     this.initVelocity = initVelocity;
     this.raycaster = new Raycaster();
@@ -173,4 +174,4 @@ class EnemyBoomeerang extends Phaser.Sprite {
 
 }
 
-export default EnemyBoomeerang;
+export default EnemyBoomerang;

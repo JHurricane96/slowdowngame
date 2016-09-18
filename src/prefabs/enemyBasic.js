@@ -9,6 +9,7 @@ class EnemyBasic extends Phaser.Sprite {
 
     this.game.physics.arcade.enableBody(this);
     this.body.velocity.set(initVelocity.x, initVelocity.y);
+    this.enemyType = "basic";
 
     this.initVelocity = initVelocity;
     this.raycaster = new Raycaster();

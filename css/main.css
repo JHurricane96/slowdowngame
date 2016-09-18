@@ -8,6 +8,21 @@ canvas {
   display: block;
   cursor: none;
 }
+
+#scoreboard {
+  position: absolute;
+  left: 100%;
+  white-space: nowrap;
+  padding: 10px;
+  transform: translateX(-100%);
+  z-index: 2;
+  font-family: sans-serif;
+  font-size: 1.2em;
+  color: #EEE;
+  border-radius: 0 0 0 5px;
+  background: rgba(20, 20, 20, 0.5);
+}
+
 .state-container {
   position: absolute;
   top: 0;
@@ -43,6 +58,20 @@ canvas {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+#resumepage a {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: large;
+  border-bottom: 1px solid white;
+}
+#resumepage a:hover {
+  cursor: pointer;
+  color: #1FCE6D;
+  border-bottom: 1px solid #1FCE6D;
 }
 
 #gameover p {

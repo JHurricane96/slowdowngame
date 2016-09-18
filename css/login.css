@@ -19,6 +19,22 @@
     -moz-animation-duration: 0.4s;
 
 }
+
+#wrongusernamemsg {
+    display: inline-block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 5px;
+    background: rgba(180, 0, 0, 0.8);
+    transition: all 0.2s;
+}
+
+#wrongusernamemsg.show {
+    height: auto;
+    padding: 10px;
+}
+
 #loginpage a:hover{
     color:#1FCE6D;
 }

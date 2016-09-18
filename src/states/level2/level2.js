@@ -28,9 +28,6 @@ class Level2 extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
-
-    //console.log("GGGGGGGGG");
-
   }
 
   //Setup code, method called after preload
@@ -52,7 +49,6 @@ class Level2 extends Phaser.State {
     }, this);
     this.game.sound.setDecodedCallback([ bgm ], () => {
       bgm.loopFull();
-    console.log("GGGGGGGGG");
   }, this);
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
@@ -137,14 +133,14 @@ class Level2 extends Phaser.State {
 
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
-          enemy.eliminate();
-          if(enemy.constructor.name == "EnemyBasic"){
-            this.score.killEnemy("basic");
-          }
-          else if(enemy.constructor.name == "EnemyBoomerang"){
-            this.score.killEnemy("boomerang");
-          }
-        }) === false) {
+        if (enemy.enemyType === "basic") {
+          this.score.killEnemy("basic");
+        }
+        else if (enemy.enemyType === "boomerang") {
+          this.score.killEnemy("boomerang");
+        }
+        enemy.eliminate();
+      }, null, this) === false) {
         remainingEnemies.push(enemy);
       }
     }
@@ -164,8 +160,7 @@ class Level2 extends Phaser.State {
   handleBulletCollisions() {
 
     for (const enemy of this.enemies) {
-      if( enemy.constructor.name == "EnemyBoomerang" || enemy.isShooting == true ){ 
-          console.log(enemy.constructor.name , enemy.isShooting);
+      if( enemy.constructor.name == "EnemyBoomerang" || enemy.isShooting == true ) {
           this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
             if(this.player.body.position.x > enemy.body.position.x )
               bullet.body.velocity.x = -3000;
@@ -175,7 +170,6 @@ class Level2 extends Phaser.State {
               bullet.body.velocity.y *= -1 ;
               flag =1 ;
             }
-            console.log(bullet.body.velocity.y);
         });
       }
 

@@ -32,9 +32,15 @@ class Loginpage extends Phaser.State {
       user_pass: document.getElementById("loginpassword").value
     }
 
+    const errormsgElt = document.getElementById("wrongusernamemsg");
+    const loginButton = document.querySelector("#loginpage input[type=\"submit\"]");
+    errormsgElt.classList.remove("show");
+    loginButton.value = "please wait...";
+
     const loginRequest = new XMLHttpRequest();
     loginRequest.onreadystatechange = () => {
       if (loginRequest.readyState === XMLHttpRequest.DONE) {
+        loginButton.value = "log in";
         if (loginRequest.status === 200) {
           const loginResponse = JSON.parse(loginRequest.responseText);
           if (loginResponse.status_code === 200) {
@@ -50,8 +56,10 @@ class Loginpage extends Phaser.State {
                   const progressResponse = JSON.parse(getProgressStatus.responseText);
                   if (progressResponse.status_code === 200) {
                     console.log(progressResponse);
-                    //this.game.state.start("dialogIntro");
-                  } 
+                    this.game.global.level = parseInt(progressResponse.message.latest_level, 10);
+                    this.game.global.score = this.game.global.beginScore = parseInt(progressResponse.message.latest_score, 10);
+                    this.game.state.start("resumepage");
+                  }
                 }
               }
             }
@@ -59,6 +67,9 @@ class Loginpage extends Phaser.State {
             getProgressStatus.open("POST", this.game.global.apiBaseUrl + "/user/getgamedetails");
             getProgressStatus.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             getProgressStatus.send("user_id=" + loginResponse.user_id + "&token=" + loginResponse.message);
+          }
+          else {
+            errormsgElt.classList.add("show");
           }
         }
       }

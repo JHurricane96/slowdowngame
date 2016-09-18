@@ -8,6 +8,7 @@ class Gameover extends Phaser.State {
     super(game,parent);
     this.div = document.getElementById("gameover");
     document.getElementById("gameovernewbutton").addEventListener("click", () => {
+      document.getElementById("scoreboard").innerHTML = 0;
       this.game.global.score = 0;
       this.game.global.beginScore = 0;
       this.game.global.level = 1;

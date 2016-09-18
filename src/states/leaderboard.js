@@ -7,7 +7,7 @@ class Leaderboard extends Phaser.State {
   constructor(game, parent) {
     super(game,parent);
     document.getElementById("leaderboardtologinpagebutton").addEventListener("click", () => {
-      this.game.state.start("loginpage");
+      this.game.state.start("resumepage");
     });
   }
 
@@ -20,8 +20,32 @@ class Leaderboard extends Phaser.State {
   create() {
     this.div = document.getElementById("leaderboard");
     this.div.style.display = "block";
-    this.div.insertAdjacentHTML("beforeend", Handlebars.templates.leaderboard({scores:[{username:"hello", score:1}]}));
     this.game.stage.backgroundColor = "#FFF";
+    const request = new XMLHttpRequest();
+    request.onreadystatechange = () => {
+      if (request.readyState === XMLHttpRequest.DONE) {
+        if (request.status === 200) {
+          const response = JSON.parse(request.responseText);
+          if (response.status_code === 200) {
+            console.log(response);
+            const scores = response.message.leaderboard.map(elt => {
+              return {
+                username: elt.user_fullname,
+                score: elt.high_score
+              }
+            });
+            this.div.insertAdjacentHTML("beforeend", Handlebars.templates.leaderboard({ scores: scores }));
+          } 
+        }
+      }
+    }
+
+    request.open("POST", this.game.global.apiBaseUrl + "/games/leaderboard");
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    request.send(
+      "user_id=" + this.game.global.user_id +
+      "&count=" + 10
+    );
   }
 
   //Code ran on each frame of game
@@ -41,7 +65,10 @@ class Leaderboard extends Phaser.State {
 
   //Called when switching to a new state
   shutdown() {
-    this.div.removeChild(this.div.getElementsByTagName("table")[0]);
+    const tables = this.div.getElementsByTagName("table");
+    if (tables.length !== 0) {
+      this.div.removeChild(tables[0]);
+    }
     this.div.style.display = "none";
     this.game.stage.backgroundColor = "#000";
   }

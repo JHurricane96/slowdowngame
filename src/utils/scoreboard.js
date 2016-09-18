@@ -1,6 +1,11 @@
 class Scoreboard {
   constructor(game) {
     this.game = game;
+    this.scoreElement = document.getElementById("scoreboard");
+  }
+
+  setScoreInElt() {
+    this.scoreElement.innerHTML = this.game.global.score;
   }
 
   getScore() {
@@ -17,10 +22,13 @@ class Scoreboard {
     else if (enemyType === "boomerang") {
       this.game.global.score += 100;
     }
+    this.setScoreInElt();
   }
 
   die() {
-    this.game.global.score = this.game.global.beginScore - 10;
+    //this.game.global.beginScore -= 10;
+    this.game.global.score = this.game.global.beginScore;
+    this.setScoreInElt();
     this.sendScore();
   }
 
@@ -37,6 +45,7 @@ class Scoreboard {
   resetScore() {
     this.game.global.score = 0;
     this.game.global.beginScore = 0;
+    this.setScoreInElt();
   }
 
   sendScore() {
@@ -45,6 +54,7 @@ class Scoreboard {
       if (request.readyState === XMLHttpRequest.DONE) {
         if (request.status === 200) {
           const response = JSON.parse(request.responseText);
+          console.log(response);
           if (response.status_code === 200) {
             console.log(response);
           } 
@@ -56,8 +66,8 @@ class Scoreboard {
     request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     request.send(
       "user_id=" + this.game.global.user_id +
-      "&user_score" + this.game.global.score +
-      "&user_level" + this.game.global.level +
+      "&user_score=" + this.game.global.score +
+      "&user_level=" + this.game.global.level +
       "&token=" + this.game.global.token
     );
   }
