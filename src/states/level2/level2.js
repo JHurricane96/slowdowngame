@@ -14,7 +14,7 @@ import spl from "./enemy1";
 import Score from "../../utils/scoreboard";
 
 
-var flag =0 ;
+var flag =0 , bgm;
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level2 extends Phaser.State {
@@ -30,6 +30,8 @@ class Level2 extends Phaser.State {
 
     this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
     this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+    this.game.load.audio('bgm', '../../../assets/audio/desert.mp3');
+    //console.log("GGGGGGGGG");
 
   }
 
@@ -43,6 +45,12 @@ class Level2 extends Phaser.State {
 
     var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
+    bgm = this.game.add.audio('bgm');
+
+    this.game.sound.setDecodedCallback([ bgm ], () => {
+      bgm.loopFull();
+      console.log("GGGGGGGGG");
+    }, this);
 
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
     var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
