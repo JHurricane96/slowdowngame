@@ -39,6 +39,7 @@ class Level2 extends Phaser.State {
     this.world.width = 5000;
     this.world.height = 5080;
     this.game.physics.arcade.gravity.y = 1400;
+    this.game.add.tileSprite(0,0,4000,3500,'desert');
 
     var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
