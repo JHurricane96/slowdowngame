@@ -40,11 +40,11 @@ class Gameover extends Phaser.State {
   //You're able to do any final post-processing style effects here.
   render() {
 
-
-  onInputDown () {
-    if(this.canContinueToNextState){
-      this.game.state.start('level3');
+    function onInputDown() {
+      if(this.canContinueToNextState)
+        this.game.state.start('level3');
     }
+
   }
 
   //Called when switching to a new state
