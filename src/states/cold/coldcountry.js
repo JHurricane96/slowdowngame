@@ -32,26 +32,38 @@ class Coldcountry extends Phaser.State {
 
   //Load operations (uses Loader), method called first
   preload() {
-
+      this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
+      this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
   }
 
   //Setup code, method called after preload
   create() {
-    this.game.stage.backgroundColor = "31627B";//4488AA
+    //this.game.stage.backgroundColor = "31627B";//4488AA
     this.game.world.setBounds(0, 0, 11500, 1080);
     this.world.width = 11500;
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
-
+    this.game.add.tileSprite(0,0,11500,1080,'bg snow');
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
+
+
+      var raygun = this.game.add.audio('raygun');
+      var loudbang = this.game.add.audio('loudbang');
+
+      this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
+          var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+
+      key.raygun.onDown.add(() => { raygun.play(); }, this);
+
+  }, this);
 
     this.score=new Score(this.game);
     this.goal=new Goal(this.game,11354,462,146,88,"goal");
       this.game.add.existing(this.goal);
 
-    this.player = new Player(this.game, 100,919.5);//100,919.5
+    this.player = new Player(this.game,100,919.5);//100,919.5
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -60,19 +72,19 @@ class Coldcountry extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
-      const snow=new Snow(this.game,10,20);
-      this.game.add.existing(snow);
+     // const snow=new Snow(this.game,10,20);
+      //this.game.add.existing(snow);
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "snowplatform");
+      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "snowobstacle");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
 
     this.movableobstacles = [];
     for(const movobs of movableobstacles){
-      const newmovobs = new MovableObstacle(this.game,movobs.x,movobs.y,movobs.width,movobs.height,"crosshairs");
+      const newmovobs = new MovableObstacle(this.game,movobs.x,movobs.y,movobs.width,movobs.height,"vanishingobstacle");
       this.game.add.existing(newmovobs);
       this.movableobstacles.push(newmovobs);
     }
@@ -99,35 +111,12 @@ class Coldcountry extends Phaser.State {
     this.vanishobs =[];
       for(const vanishobstacle of vanishobs)
       {
-          const newvanishobs = new Vanishobstacle(this.game,vanishobstacle.x,vanishobstacle.y,vanishobstacle.width,vanishobstacle.height,"floor");
+          const newvanishobs = new Vanishobstacle(this.game,vanishobstacle.x,vanishobstacle.y,vanishobstacle.width,vanishobstacle.height,"snowplatform");
           this.game.add.existing(newvanishobs);
           this.vanishobs.push(newvanishobs);
       }
 
-/*
-    this.groupEnemies = [];
-     for(const enemy of groupenemies)
-     {
-         const newEnemy1 =new GroupEnemy(this.game,enemy.x,enemy.y,enemy.vel);
-         newEnemy1.cacheObstacles(this.obstacles);
-         newEnemy1.cachePlayer(this.player);
-         this.game.add.existing(newEnemy1);
-         this.groupEnemies.push(newEnemy1);
 
-         const newEnemy2 =new GroupEnemy(this.game,enemy.x+100,enemy.y,enemy.vel);
-         newEnemy2.cacheObstacles(this.obstacles);
-         newEnemy2.cachePlayer(this.player);
-         this.game.add.existing(newEnemy2);
-         this.groupEnemies.push(newEnemy2);
-
-          const newEnemy3 =new GroupEnemy(this.game,enemy.x+200,enemy.y,enemy.vel);
-         newEnemy3.cacheObstacles(this.obstacles);
-         newEnemy3.cachePlayer(this.player);
-         this.game.add.existing(newEnemy3);
-         this.groupEnemies.push(newEnemy3);
-
-     }
-*/
 
     this.movableobstacles[0].vel = 200;
 
@@ -165,8 +154,7 @@ class Coldcountry extends Phaser.State {
 
 
 
-      //console.log(this.player.x+"  "+this.player.y);
-        console.log(this.score.getScore());
+    console.log(this.player.x+"  "+this.player.y);
 
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
@@ -281,7 +269,7 @@ class Coldcountry extends Phaser.State {
         for (const enemy of this.enemies) {
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
-           this.game.state.start("gameover");
+          this.game.state.start("gameover");
             this.score.die();
         }, null, this);
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {

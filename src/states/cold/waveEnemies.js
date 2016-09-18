@@ -21,7 +21,7 @@ const waveEnemies = [
 			y:620
 		},
 		position2:{
-			x:8800,
+			x:9200,
 			y:620
 		},
 		vel : {
