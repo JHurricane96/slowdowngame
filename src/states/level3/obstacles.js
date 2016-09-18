@@ -317,7 +317,7 @@ const obstacles = [
         x : 2500,
         y : height - 3300,
         width : 75,
-        height : 475,
+        height : 425,
         type: "tree"
     }, 
     {//5 end

@@ -23,7 +23,7 @@ class Gameover extends Phaser.State {
 
   onInputDown () {
     if(this.canContinueToNextState){
-      this.game.state.start('level1');
+      this.game.state.start('level3');
     }
   }
 }

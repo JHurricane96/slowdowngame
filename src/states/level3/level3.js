@@ -54,7 +54,7 @@ class Level1 extends Phaser.State {
 
   }, this);
 
-    this.player = new Player(this.game, 900, 7000 - 200);
+    this.player = new Player(this.game, 2125, 7000 - 2500);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -137,8 +137,8 @@ class Level1 extends Phaser.State {
 
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
-    this.handleBulletCollisions();
-    this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    //this.handleBulletCollisions();
+    //this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.player.isGrounded = false;
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
 
@@ -157,7 +157,6 @@ class Level1 extends Phaser.State {
     }); 
 
     this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
-    	alert("hi");
     	this.game.state.start('cold');
     }, null, this);
 
@@ -175,7 +174,7 @@ class Level1 extends Phaser.State {
     for (const enemy of this.waveEnemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
-          this.score.killEnemy("wave");g
+          this.score.killEnemy("wave");
         }) === false) {
         remainingWaveEnemies.push(enemy);
       }
