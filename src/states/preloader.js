@@ -46,14 +46,13 @@ class Preloader extends Phaser.State {
     this.game.load.image('desert','assets/desert2.jpg',3508,2480);
 
     this.game.load.image('platform','assets/platform2.png',30,27);
-
+    this.game.load.image('background','assets/backdrop2.jpg',1920,1080);
 
   }
 
   onLoadComplete() {
 
-    this.game.state.start('level2');
-
+    this.game.state.start('loginpage');
   }
 }
 
