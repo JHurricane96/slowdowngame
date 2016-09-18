@@ -13,6 +13,9 @@ import enemies from "./enemies";
 import spl from "./enemy1";
 import Score from "../../utils/scoreboard";
 
+
+var flag =0 ;
+
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level2 extends Phaser.State {
 
@@ -47,7 +50,7 @@ class Level2 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-    this.player = new Player(this.game,500,650);//50700
+    this.player = new Player(this.game,50,650);//50700
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
 
@@ -154,21 +157,33 @@ class Level2 extends Phaser.State {
   handleBulletCollisions() {
 
     for (const enemy of this.enemies) {
-      if(enemy.isShooting == true || enemy.constructor.name == "EnemyBoomerang"){ 
+      if( enemy.constructor.name == "EnemyBoomerang" || enemy.isShooting == true ){ 
+          console.log(enemy.constructor.name , enemy.isShooting);
           this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
             if(this.player.body.position.x > enemy.body.position.x )
               bullet.body.velocity.x = -3000;
             else
               bullet.body.velocity.x = 3000;
+            if(!flag){
+              bullet.body.velocity.y *= -1 ;
+              flag =1 ;
+            }
+            console.log(bullet.body.velocity.y);
+        });
+      }
+
+      else if(enemy.isShooting == true){
+        this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
+          bullet.kill();
         });
       }
 
       if(!enemy.isShooting){
         enemy.weapon.bulletSpeed = 3000;
+        flag =0 ;
         this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
           bullet.kill();
         });
-        enemy.weapon.trackSprite(enemy, enemy.width, enemy.height / 2);
       }
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
