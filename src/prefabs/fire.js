@@ -4,12 +4,12 @@ class Fire extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, frame) {
-    super(game, x, y, 'block2', frame);
+    super(game, x, y, 'fire', frame);
 
     this.game.physics.arcade.enableBody(this);
     this.body.allowGravity = false;
     this.body.immovable = true;
-
+    this.animations.add('playing',[0,1],10);
     this.edges = [
       new Phaser.Line(x, y, x + 25, y),
       new Phaser.Line(x, y, x, y + 25),
@@ -26,11 +26,12 @@ class Fire extends Phaser.Sprite {
   //Setup code, method called after preload
   create() {
 
+
   }
 
   //Code ran on each frame of game
   update() {
-
+    this.animations.play('playing');
   }
 
   //Returns edges

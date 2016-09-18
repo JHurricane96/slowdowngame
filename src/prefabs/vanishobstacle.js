@@ -4,7 +4,7 @@ class Vanishobstacle extends Phaser.TileSprite {
 
   //initialization code in the constructor
   constructor(game, x, y, width, height,name) {
-    super(game, x, y, width, height,"crosshairs");
+    super(game, x, y, width, height,"snowplatform");
     this.game.physics.arcade.enableBody(this);
     this.name=name;
     this.x=x;

@@ -14,6 +14,7 @@ import crates from "./crates";
 import buildings from "./buildings";
 import satellites from "./satellites";
 import goals from "./goals";
+import Scoreboard from "../../utils/scoreboard";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
@@ -38,6 +39,8 @@ class Level1 extends Phaser.State {
 
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
+
+    this.scoreboard = new Scoreboard(this.game);
 
     this.player = new Player(this.game, 9000, this.game.world.centerY*0);
     this.game.add.existing(this.player);
@@ -126,6 +129,7 @@ class Level1 extends Phaser.State {
       player.setVel(player,8000,23000);
     });
     this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
+      this.scoreboard.advanceLevel();
       this.game.state.start('dialogL1');
     }, null, this);
 
@@ -136,6 +140,7 @@ class Level1 extends Phaser.State {
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
+          this.scoreboard.killEnemy("basic");
         }) === false) {
         remainingEnemies.push(enemy);
       }
@@ -157,6 +162,7 @@ class Level1 extends Phaser.State {
     for (const enemy of this.enemies) {
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
+        this.scoreboard.die();
         this.game.state.start("gameover");
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {

@@ -4,7 +4,7 @@ class Stalagmite extends Phaser.Sprite {
 
   //initialization code in the constructor
   constructor(game, x, y, name,frame) {
-    super(game, x, y, 'crosshairs',frame);
+    super(game, x, y, 'stalagmite',frame);
     this.name=name;
     this.x=x;
     this.y=y;
