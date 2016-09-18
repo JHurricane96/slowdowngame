@@ -30,7 +30,7 @@ const enemyNavs = [
 
 	{
 		x: 2120,
-		y: height - 2150,
+		y: height - 1950,
 		width: 10,
 		height: 50
 	},

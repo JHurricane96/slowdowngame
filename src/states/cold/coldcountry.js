@@ -38,7 +38,11 @@ class Coldcountry extends Phaser.State {
 
   //Setup code, method called after preload
   create() {
+
     //this.game.stage.backgroundColor = "31627B";//4488AA
+
+
+
     this.game.world.setBounds(0, 0, 11500, 1080);
     this.world.width = 11500;
     this.world.height = 1080;
@@ -60,8 +64,10 @@ class Coldcountry extends Phaser.State {
   }, this);
 
     this.score=new Score(this.game);
+
     this.goal=new Goal(this.game,11354,462,146,88,"goal");
       this.game.add.existing(this.goal);
+
 
     this.player = new Player(this.game,100,919.5);//100,919.5
     this.game.add.existing(this.player);
@@ -72,8 +78,10 @@ class Coldcountry extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
+
      // const snow=new Snow(this.game,10,20);
       //this.game.add.existing(snow);
+
 
     this.obstacles = [];
     for (const obstacle of obstacles) {
@@ -100,7 +108,7 @@ class Coldcountry extends Phaser.State {
 
 
     this.stalagmites= [];
-   for(const stalagmite of stalagmites)
+    for(const stalagmite of stalagmites)
     {
       const newstalagmite = new Stalagmite(this.game,stalagmite.x,stalagmite.y,"crosshairs");
       this.game.add.existing(newstalagmite);
@@ -109,6 +117,7 @@ class Coldcountry extends Phaser.State {
     }
 
     this.vanishobs =[];
+
       for(const vanishobstacle of vanishobs)
       {
           const newvanishobs = new Vanishobstacle(this.game,vanishobstacle.x,vanishobstacle.y,vanishobstacle.width,vanishobstacle.height,"snowplatform");
@@ -118,152 +127,138 @@ class Coldcountry extends Phaser.State {
 
 
 
-    this.movableobstacles[0].vel = 200;
 
-      this.enemyNavs = [];
-      for (const enemyNav of enemyNavs) {
-          const newEnemyNav = new EnemyNav(this.game, enemyNav.x, enemyNav.y, enemyNav.width, enemyNav.height);
-          this.game.add.existing(newEnemyNav);
-          this.enemyNavs.push(newEnemyNav);
-      }
+     this.movableobstacles[0].vel = 200;
 
-      this.enemies = [];
-      for (const enemy of enemies) {
-          const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel);
-          newEnemy.cacheObstacles(this.obstacles);
-          newEnemy.cachePlayer(this.player);
-          this.game.add.existing(newEnemy);
-          this.enemies.push(newEnemy);
-      }
+     this.enemyNavs = [];
+     for (const enemyNav of enemyNavs) {
+      const newEnemyNav = new EnemyNav(this.game, enemyNav.x, enemyNav.y, enemyNav.width, enemyNav.height);
+      this.game.add.existing(newEnemyNav);
+      this.enemyNavs.push(newEnemyNav);
+    }
 
-      this.waveEnemies = [];
-      for (const enemy of waveEnemies) {
-          const newEnemy = new WaveEnemy(this.game, enemy.position1.x, enemy.position1.y, enemy.vel, enemy.position1, enemy.position2, 1);
-          newEnemy.cacheObstacles(this.obstacles);
-          newEnemy.cachePlayer(this.player);
-          this.game.add.existing(newEnemy);
-          this.waveEnemies.push(newEnemy);
-      }
+    this.enemies = [];
+    for (const enemy of enemies) {
+      const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel);
+      newEnemy.cacheObstacles(this.obstacles);
+      newEnemy.cachePlayer(this.player);
+      this.game.add.existing(newEnemy);
+      this.enemies.push(newEnemy);
+    }
 
-      this.bullets = [];
+    this.waveEnemies = [];
+    for (const enemy of waveEnemies) {
+      const newEnemy = new WaveEnemy(this.game, enemy.position1.x, enemy.position1.y, enemy.vel, enemy.position1, enemy.position2, 1);
+      newEnemy.cacheObstacles(this.obstacles);
+      newEnemy.cachePlayer(this.player);
+      this.game.add.existing(newEnemy);
+      this.waveEnemies.push(newEnemy);
+    }
+
+    this.bullets = [];
   }
 
 
   //Code ran on each frame of game
   update() {
 
-
-
-    console.log(this.player.x+"  "+this.player.y);
-
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.player.friction=0;
-   this.handleBulletCollisions();
+    this.handleBulletCollisions();
     this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.player.isGrounded=false;
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
     this.game.physics.arcade.collide(this.player, this.movableobstacles);
-      this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
-          enemy.reverseDirection(enemyNav);
-  });
+    this.game.physics.arcade.collide(this.enemies, this.enemyNavs, (enemy, enemyNav) => {
+      enemy.reverseDirection(enemyNav);
+    });
 
-      this.game.physics.arcade.collide(this.waveEnemies, this.obstacles);
-      this.game.physics.arcade.collide(this.waveEnemies, this.enemyNavs, (enemy, enemyNav) => {
-          enemy.reverseDirection(enemyNav);
-  });
-      const remainingEnemies = [];
-      for (const enemy of this.enemies) {
-          if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
-                  enemy.eliminate();
-                    this.score.killEnemy("basic");
+    this.game.physics.arcade.collide(this.waveEnemies, this.obstacles);
+    this.game.physics.arcade.collide(this.waveEnemies, this.enemyNavs, (enemy, enemyNav) => {
+      enemy.reverseDirection(enemyNav);
+    });
+    const remainingEnemies = [];
+    for (const enemy of this.enemies) {
+      if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
+        enemy.eliminate();
+        this.score.killEnemy("basic");
       }) === false) {
-              remainingEnemies.push(enemy);
-          }
+        remainingEnemies.push(enemy);
       }
-
-      const linesToPlayer = [];
-      for (const enemy of this.enemies) {
-          if (enemy.losToPlayer !== null && enemy.isShooting === false) {
-              linesToPlayer.push(enemy.losToPlayer);
-          }
-      }
-      this.drawLines(linesToPlayer);
-      this.enemies = remainingEnemies;
-
-      const remainingWaveEnemies = [];
-      for (const enemy of this.waveEnemies) {
-          if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
-                  enemy.eliminate();
-                    this.score.killEnemy("wave");
-      }) === false) {
-              remainingWaveEnemies.push(enemy);
-          }
-      }
-      this.waveEnemies=remainingWaveEnemies;
-
-
-
-
-
-
-   for(const stalags of this.stalagmites) {
-     if (Math.abs(this.player.x - stalags.x) <100&&stalags&&Math.abs(this.player.y-stalags.y)<400) {
-         stalags.fallOnPlayer();
-
-     }
-   }
-    for(const stalag of this.stalagmites)
-    {
-      this.game.physics.arcade.overlap(this.player,stalag,(player,stalag)=>{
-            if(stalag){
-                stalag.killstalag();
-                this.game.state.start("gameover");
-                this.score.die();
-            }
-          });
-      this.game.physics.arcade.overlap(this.obstacles,stalag,(obstacles,stalag)=>{
-        if(stalag){
-            stalag.killstalag();
-
-        }
-      });
-
- }
-
-    for(const vanishobs of this.vanishobs)
-    {
-        this.game.physics.arcade.collide(vanishobs,this.player,(vanishobs,player)=>{
-            if(this.player.y<vanishobs.body.position.y)
-        {
-            setTimeout(function () {
-                    vanishobs.vanish();
-                }
-
-                , 500);
-
-            setTimeout(function () {
-                vanishobs.appear();
-            }, 5000);
-        }
-        });
-
     }
 
+    const linesToPlayer = [];
+    for (const enemy of this.enemies) {
+      if (enemy.losToPlayer !== null && enemy.isShooting === false) {
+        linesToPlayer.push(enemy.losToPlayer);
+      }
+    }
+    this.drawLines(linesToPlayer);
+    this.enemies = remainingEnemies;
+
+    const remainingWaveEnemies = [];
+    for (const enemy of this.waveEnemies) {
+      if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
+        enemy.eliminate();
+        this.score.killEnemy("wave");
+      }) === false) {
+        remainingWaveEnemies.push(enemy);
+      }
+    }
+    this.waveEnemies=remainingWaveEnemies;
+
+    for (const stalags of this.stalagmites) {
+      if (Math.abs(this.player.x - stalags.x) <100&&stalags&&Math.abs(this.player.y-stalags.y)<400) {
+        stalags.fallOnPlayer();
+      }
+    }
+     for (const stalag of this.stalagmites) {
+      this.game.physics.arcade.overlap(this.player, stalag, (player, stalag) => {
+        if(stalag) {
+          stalag.killstalag();
+          this.score.die();
+          this.game.state.start("gameover");
+        }
+      });
+      this.game.physics.arcade.overlap(this.obstacles,stalag,(obstacles,stalag)=>{
+        if(stalag) {
+          stalag.killstalag();
+        }
+      });
+    }
+
+    for (const vanishobs of this.vanishobs) {
+      this.game.physics.arcade.collide(vanishobs,this.player,(vanishobs,player)=>{
+        if(this.player.y < vanishobs.body.position.y) {
+          setTimeout(function () {
+            vanishobs.vanish();
+          }, 500);
+
+          setTimeout(function () {
+            vanishobs.appear();
+          }, 5000);
+        }
+      });
+    }
 
     this.game.physics.arcade.collide(this.movableobstacles, this.movableobsNav, (obstacle, obsnav) => {
       obstacle.reverseDirection(obsnav);
 
 
-  });
+    });
 
-      this.movableobstacles[0].body.position.x += this.game.time.physicsElapsed * this.movableobstacles[0].vel;
-        this.game.physics.arcade.overlap(this.player,this.goal,()=>{
-           this.game.state.start("dialogL4");
-        });
+    this.movableobstacles[0].body.position.x += this.game.time.physicsElapsed * this.movableobstacles[0].vel;
+    this.game.physics.arcade.overlap(this.player, this.goal, () => {
+      this.score.sendScore();
+      this.score.resetLevel();
+      this.score.resetScore();
+      this.game.state.start("dialogL4");
+   });
 
   }
+
     //Handles bullet collisions with obstacles and player
     handleBulletCollisions() {
         for (const enemy of this.enemies) {
@@ -299,24 +294,21 @@ class Coldcountry extends Phaser.State {
 
         });
         }
+
+  }
+
+  //Draws LOS's to player
+  drawLines(linesToPlayer) {
+    this.bitmap.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (const line of linesToPlayer) {
+      this.bitmap.context.strokeStyle = "red";
+      this.bitmap.context.beginPath();
+      this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
+      this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
+      this.bitmap.context.stroke();
     }
-
-    //Draws LOS's to player
-    drawLines(linesToPlayer) {
-
-        this.bitmap.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        for (const line of linesToPlayer) {
-            this.bitmap.context.strokeStyle = "red";
-            this.bitmap.context.beginPath();
-            this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
-            this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
-            this.bitmap.context.stroke();
-        }
-        this.bitmap.dirty = true;
-    }
-
-
-
+    this.bitmap.dirty = true;
+  }
 
   //Called when game is paused
   paused() {
@@ -333,10 +325,10 @@ class Coldcountry extends Phaser.State {
 
   }
 
-
 }
-function killstala(stalagmite)
-{
+
+function killstala(stalagmite) {
   stalagmite.killstalag();
 }
+
 export default Coldcountry;

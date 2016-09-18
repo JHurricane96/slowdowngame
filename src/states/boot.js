@@ -33,6 +33,8 @@ class Boot extends Phaser.State {
   initGlobalVariables(){
     this.game.global = {
       score: 0,
+      beginScore: 0,
+      level: 1,
       slowdown: 13,
       isSlowdown: true,
     };
