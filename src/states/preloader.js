@@ -48,11 +48,15 @@ class Preloader extends Phaser.State {
     this.game.load.image('platform','assets/platform2.png',30,27);
     this.game.load.image('background','assets/backdrop2.jpg',1920,1080);
 
+    this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
+    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+    this.game.load.audio('bgm', '../../../assets/audio/desert.mp3');
+    this.game.load.audio('coldbgm','assets/Blue-Ridge.mp3');
   }
 
   onLoadComplete() {
 
-    this.game.state.start('loginpage');
+    this.game.state.start('cold');
   }
 }
 

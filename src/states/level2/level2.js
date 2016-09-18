@@ -28,9 +28,7 @@ class Level2 extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
-    this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
-    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
-    this.game.load.audio('bgm', '../../../assets/audio/desert.mp3');
+
     //console.log("GGGGGGGGG");
 
   }
@@ -45,17 +43,17 @@ class Level2 extends Phaser.State {
 
     var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
-    bgm = this.game.add.audio('bgm');
+    var bgm = this.game.add.audio('bgm');
 
-    this.game.sound.setDecodedCallback([ bgm ], () => {
-      bgm.loopFull();
-      console.log("GGGGGGGGG");
-    }, this);
 
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
     var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
       key.raygun.onDown.add(() => { raygun.play(); }, this);
     }, this);
+    this.game.sound.setDecodedCallback([ bgm ], () => {
+      bgm.loopFull();
+    console.log("GGGGGGGGG");
+  }, this);
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
@@ -198,6 +196,7 @@ class Level2 extends Phaser.State {
         bullet.kill();
         this.score.die();
         this.game.state.start("gameover");
+      this.game.sound.stopAll();
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
         bullet.kill();

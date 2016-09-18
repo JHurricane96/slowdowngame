@@ -32,8 +32,7 @@ class Coldcountry extends Phaser.State {
 
   //Load operations (uses Loader), method called first
   preload() {
-      this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
-      this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+
   }
 
   //Setup code, method called after preload
@@ -52,16 +51,17 @@ class Coldcountry extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
-
+    var bgm = this.game.add.audio('coldbgm');
       var raygun = this.game.add.audio('raygun');
       var loudbang = this.game.add.audio('loudbang');
 
-      this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
-          var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
-
-      key.raygun.onDown.add(() => { raygun.play(); }, this);
-
+    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
+      var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+    key.raygun.onDown.add(() => { raygun.play(); }, this);
   }, this);
+    this.game.sound.setDecodedCallback([ bgm ], () => {
+      bgm.loopFull();
+      }, this);
 
     this.score=new Score(this.game);
 
@@ -79,8 +79,8 @@ class Coldcountry extends Phaser.State {
     this.player.sword = sword;
     this.player.addChild(sword);
 
-      const snow=new Snow(this.game,10,20);
-      this.game.add.existing(snow);
+     // const snow=new Snow(this.game,10,20);
+      //this.game.add.existing(snow);
 
 
     this.obstacles = [];
@@ -164,7 +164,7 @@ class Coldcountry extends Phaser.State {
 
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
-    this.player.friction=0;
+    //this.player.friction=0;
     this.handleBulletCollisions();
     this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.player.isGrounded=false;
@@ -220,6 +220,7 @@ class Coldcountry extends Phaser.State {
           stalag.killstalag();
           this.score.die();
           this.game.state.start("gameover");
+          this.game.sound.stopAll();
         }
       });
       this.game.physics.arcade.overlap(this.obstacles,stalag,(obstacles,stalag)=>{
@@ -265,6 +266,7 @@ class Coldcountry extends Phaser.State {
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
           this.game.state.start("gameover");
+          this.game.sound.stopAll();
             this.score.die();
         }, null, this);
             this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
@@ -277,6 +279,7 @@ class Coldcountry extends Phaser.State {
             this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.player, (player, bullet) => {
                 bullet.kill();
           this.game.state.start("gameover");
+          this.game.sound.stopAll();
             this.score.die();
         }, null, this);
 
