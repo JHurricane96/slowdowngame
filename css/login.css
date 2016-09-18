@@ -11,6 +11,12 @@
     text-decoration: none;
     text-align: center;
     font-size: large;
+    animation-name: slideright;
+    animation-duration: 0.4s;
+    -webkit-animation-name: slideright;
+    -webkit-animation-duration: 0.4s;
+    -moz-animation-name: slideright;
+    -moz-animation-duration: 0.4s;
 
 }
 #loginpage a:hover{
@@ -82,4 +88,33 @@ text-align: center;
 #loginpage button:active {
     position:relative;
     top:1px;
+}
+#loginpage .animated{
+    animation-name: slideleft;
+    animation-duration: 0.4s;
+    -webkit-animation-name: slideleft;
+    -webkit-animation-duration: 0.4s;
+    -moz-animation-name: slideleft;
+    -moz-animation-duration: 0.4s;
+}
+@keyframes slideleft {
+    from{
+        margin-left:-5000px;
+        opacity: 0;
+    }
+    to{
+        margin-left:0px;
+        opacity: 1;
+    }
+}
+
+@keyframes slideright {
+    from{
+        margin-right: -5000px;
+        opacity: 0;
+    }
+    to{
+        margin-right: 0px;
+        opacity: 1;
+    }
 }
