@@ -79,8 +79,8 @@ class Coldcountry extends Phaser.State {
     this.player.sword = sword;
     this.player.addChild(sword);
 
-     // const snow=new Snow(this.game,10,20);
-      //this.game.add.existing(snow);
+      const snow=new Snow(this.game,10,20);
+      this.game.add.existing(snow);
 
 
     this.obstacles = [];

@@ -45,13 +45,13 @@ class Preloader extends Phaser.State {
     this.game.load.image('vanishingobstacle','assets/block.jpg',110,108);
 
     this.game.load.image('platform','assets/platform2.png',30,27);
-
+    this.game.load.image('background','assets/backdrop2.jpg',1920,1080);
 
   }
 
   onLoadComplete() {
 
-    this.game.state.start('level3');
+    this.game.state.start('loginpage');
 
   }
 }

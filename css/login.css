@@ -1,7 +1,8 @@
 #loginpage {
-    background: #2E3740;
+    background: url("../assets/backdrop2.jpg") no-repeat center center fixed;
+    background-size: 100% 100%;
     color: #ffffff;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Raleway", Helvetica, sans-serif;
     height: 100%;
 }
 
@@ -9,19 +10,13 @@
     color: #16aa56;
     text-decoration: none;
     text-align: center;
+    font-size: large;
+
 }
 #loginpage a:hover{
     color:#1FCE6D;
 }
-#loginpage h2 {
-    color: #6D7781;
-    font-family: "Sofia", cursive;
-    font-weight: bold;
-    font-size: 3.6em;
-    text-align: center;
-    margin-bottom: 20px;
-    margin-top: 100px;
-}
+
 #loginpage form{
 text-align: center;
 }
@@ -45,7 +40,7 @@ text-align: center;
     width: 350px;
     height: 40px;
     border-radius: 3px;
-    font-family: Arial;
+    font-family: sans-serif;
     color: #fff;
     font-size: 20px;
     cursor: pointer;
@@ -53,37 +48,18 @@ text-align: center;
 }
 #loginpage input[type="submit"]:hover {
     background: #16aa56;
-    animation-name: shake;
+
 }
 #loginpage ::-webkit-input-placeholder {
     color: #435160;
     font-size: 15px;
-}
-
-#loginpage .animated {
-    animation-fill-mode: both;
-    animation-duration: 1s;
-}
-
-#loginpage @keyframes shake {
-    0%, 100% {
-        transform: translateX(0);
-    }
-    10%, 30%, 50%, 70%, 90% {
-        transform: translateX(-10px);
-    }
-    20%, 40%, 60%, 80% {
-        transform: translateX(10px);
-    }
 }
 #loginpage p{
     padding:2px 0px;
     color:#ffffff;
     opacity: 0.4;
 }
-#loginpage tr{
-    color:#ffffff;
-}
+
 #loginpage button{
     display: inline-block;
     float:right;
