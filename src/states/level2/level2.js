@@ -119,6 +119,7 @@ class Level2 extends Phaser.State {
     });
 
     this.game.physics.arcade.collide(this.player, this.goal, () => {
+      this.score.advanceLevel();
       this.game.state.start("level3");
     }, null, this);
 

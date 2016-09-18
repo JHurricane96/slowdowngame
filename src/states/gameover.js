@@ -9,6 +9,7 @@ class Gameover extends Phaser.State {
     this.div = document.getElementById("gameover");
     document.getElementById("gameovernewbutton").addEventListener("click", () => {
       this.game.global.score = 0;
+      this.game.global.beginScore = 0;
       this.game.global.level = 1;
       this.game.state.start("dialogIntro");
     });
@@ -39,11 +40,6 @@ class Gameover extends Phaser.State {
 
   //You're able to do any final post-processing style effects here.
   render() {
-
-    function onInputDown() {
-      if(this.canContinueToNextState)
-        this.game.state.start('level3');
-    }
 
   }
 

@@ -20,12 +20,14 @@ class Scoreboard {
   }
 
   die() {
-    this.game.global.score -= 10;
+    this.game.global.score = this.game.global.beginScore - 10;
     this.sendScore();
   }
 
   advanceLevel() {
     this.game.global.level++;
+    this.game.global.beginScore = this.game.global.score;
+    this.sendScore();
   }
 
   resetLevel() {
@@ -34,6 +36,7 @@ class Scoreboard {
 
   resetScore() {
     this.game.global.score = 0;
+    this.game.global.beginScore = 0;
   }
 
   sendScore() {
