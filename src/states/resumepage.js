@@ -9,7 +9,12 @@ class Resumepage extends Phaser.State {
     this.div = document.getElementById("resumepage");
     document.getElementById("resumepageresumebutton").addEventListener("click", () => {
       document.getElementById("scoreboard").innerHTML = this.game.global.score;
-      this.game.state.start("level" + this.game.global.level);
+      if (this.game.global.level === 4) {
+        this.game.state.start("cold");
+      }
+      else {
+        this.game.state.start("level" + this.game.global.level);
+      }
     });
     document.getElementById("resumepagenewbutton").addEventListener("click", () => {
       this.game.global.level = 1;
