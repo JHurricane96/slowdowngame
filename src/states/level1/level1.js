@@ -43,7 +43,7 @@ class Level1 extends Phaser.State {
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
   	this.game.stage.backgroundColor = "#02AEF0";
-    this.player = new Player(this.game, 9800, this.game.world.centerY*0);
+    this.player = new Player(this.game, 500, this.game.world.centerY);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
     //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
