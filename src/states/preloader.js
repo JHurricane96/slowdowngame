@@ -48,6 +48,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('snowobstacle','assets/snow.jpg',110,108);
     this.game.load.image('vanishingobstacle','assets/block.jpg',110,108);
     this.game.load.image('desert','assets/desert2.jpg',3508,2480);
+    this.game.load.image('bullet2','assets/bullet2.jpg',25,25);
 
     this.game.load.image('platform','assets/platform2.png',30,27);
     this.game.load.image('background','assets/backdrop2.jpg',1920,1080);
@@ -57,10 +58,11 @@ class Preloader extends Phaser.State {
     this.game.load.audio('bgm', '../../../assets/audio/desert.mp3');
     this.game.load.audio('coldbgm','assets/Blue-Ridge.mp3');
     this.game.load.audio('forestBgm','assets/audio/Lost-Jungle.mp3');
+    this.game.load.audio('urBGM','assets/audio/level1.mp3');
   }
 
   onLoadComplete() {
-    this.game.state.start('loginpage');
+    this.game.state.start('level1');
   }
 }
 

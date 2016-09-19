@@ -28,9 +28,7 @@ class Level1 extends Phaser.State {
 
   //Load operations (uses Loader), method called first
   preload() {
-     this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
-     this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
-     this.game.load.audio('urBGM',"../../../assets/audio/lv1.mp3");
+
   }
 
   //Setup code, method called after preloa
@@ -56,17 +54,17 @@ class Level1 extends Phaser.State {
     //this.game.add.existing(sword);
     var loudbang = this.game.add.audio('loudbang');
     var raygun = this.game.add.audio('raygun');
-    var urBGM=this.game.add.audio('urBGM');
-
- 	this.game.sound.setDecodedCallback([ urBGM ], () => {
-      alert(works);	
-      urBGM.loopFull();
-      },this);
+    var urBGM = this.game.add.audio('urBGM');
 
 
-    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
+
+
+  this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
     var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
     key.raygun.onDown.add(() => { raygun.play(); }, this);
+    this.game.sound.setDecodedCallback([ urBGM ], () => { 
+      urBGM.loopFull();
+    },this);
   }, this);
 
     this.satellites = [];
@@ -162,8 +160,7 @@ class Level1 extends Phaser.State {
         remainingEnemies.push(enemy);
       }
     }
-    //this.game.physics.arcade.collide(this.player, this.enemies);
-    console.log(this.player.position);
+    //this.game.physics.arcade.collide
     const linesToPlayer = [];
     for (const enemy of this.enemies) {
       if (enemy.losToPlayer !== null && enemy.isShooting === false) {
@@ -180,6 +177,8 @@ class Level1 extends Phaser.State {
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
         this.game.state.start("gameover");
+        
+        this.game.sound.stopAll();
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
         bullet.kill();

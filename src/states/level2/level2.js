@@ -49,7 +49,7 @@ class Level2 extends Phaser.State {
     }, this);
     this.game.sound.setDecodedCallback([ bgm ], () => {
       bgm.loopFull();
-  }, this);
+    }, this);
     this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
@@ -88,6 +88,7 @@ class Level2 extends Phaser.State {
     this.enemies = [];
     for (const enemy of enemies) {
       const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel);
+      //newEnemy.weapon = this.game.add.weapon(2, "bullet2");
       newEnemy.cacheObstacles(this.obstacles);
       newEnemy.cachePlayer(this.player);
       this.game.add.existing(newEnemy);
@@ -115,7 +116,7 @@ class Level2 extends Phaser.State {
     this.bitmapImg.x = this.game.camera.x;
     this.bitmapImg.y = this.game.camera.y;
     this.handleBulletCollisions();
-    this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
+    // this.game.physics.arcade.overlap(this.enemies, this.player, this.player.handleOverlap, null, this.player);
     this.player.isGrounded = false;
     this.game.physics.arcade.collide(this.player, this.obstacles, this.player.grounded, null, this.player);
     this.game.physics.arcade.overlap(this.player, this.traps, this.player.trapped, null, this.player);

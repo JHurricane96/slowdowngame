@@ -23,7 +23,7 @@ class EnemyBoomerang extends Phaser.Sprite {
     this.animations.add('right', [0,1,2], 5);
     this.animations.add('left',[3,4,5],5);
 
-    this.weapon = game.add.weapon(2, "bullet");
+    this.weapon = game.add.weapon(2, "bullet2");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
     this.weapon.bulletSpeed = 3000;
     this.weapon.bulletGravity.set(0);
