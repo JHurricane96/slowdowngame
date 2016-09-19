@@ -33,6 +33,8 @@ class Coldcountry extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
+    this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
+    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
   }
 
   //Setup code, method called after preload
@@ -52,9 +54,9 @@ class Coldcountry extends Phaser.State {
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
     var bgm = this.game.add.audio('coldbgm');
-      var raygun = this.game.add.audio('raygun');
-      var loudbang = this.game.add.audio('loudbang');
 
+      var loudbang = this.game.add.audio('loudbang');
+    var raygun = this.game.add.audio('raygun');
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
       var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
     key.raygun.onDown.add(() => { raygun.play(); }, this);
@@ -254,6 +256,7 @@ class Coldcountry extends Phaser.State {
     this.game.physics.arcade.overlap(this.player, this.goal, () => {
       this.score.sendScore();
       this.score.resetLevel();
+      this.game.sound.stopAll();
       this.score.resetScore();
       this.game.state.start("dialogL4");
    });
