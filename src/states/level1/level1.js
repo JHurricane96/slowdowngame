@@ -102,12 +102,10 @@ class Level1 extends Phaser.State {
     }
     
     this.goals = [];
-    this.lvlComplete = [];
     for (const goal of goals) {
       const newGoal = new Goal(this.game, goal.x, goal.y, goal.width, goal.height, "goal");
       this.game.add.existing(newGoal);
-      this.goals.push(newGoal);
-      this.lvlComplete.push(newGoal);   
+      this.goals.push(newGoal);   
     }
     this.enemyNavs = [];
     for (const enemyNav of enemyNavs) {
@@ -143,7 +141,8 @@ class Level1 extends Phaser.State {
     this.game.physics.arcade.collide(this.player, this.satellites, (player, satellites) => {
       player.setVel(player,8000,23000);
     });
-    this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
+    this.game.physics.arcade.collide(this.goals, this.player, () => {
+      this.game.advanceLevel();
       this.game.state.start('dialogL1');
     }, null, this);
 
