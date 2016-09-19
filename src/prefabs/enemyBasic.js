@@ -4,7 +4,7 @@ import Raycaster from "../utils/raycaster";
 class EnemyBasic extends Phaser.Sprite {
 
   //initialization code in the constructor
-  constructor(game, x, y, initVelocity, frame) {
+  constructor(game, x, y, initVelocity, bulletAssetName, frame) {
     super(game, x, y, 'enemybasic', frame);
 
     this.game.physics.arcade.enableBody(this);
@@ -24,7 +24,7 @@ class EnemyBasic extends Phaser.Sprite {
     this.animations.add('right', [0,1,2], 5);
     this.animations.add('left',[3,4,5],5);
 
-    this.weapon = game.add.weapon(2, "bullet2");
+    this.weapon = game.add.weapon(2, bulletAssetName);
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
     this.weapon.bulletSpeed = 2000;
     this.weapon.bulletGravity.set(0);
@@ -138,12 +138,10 @@ class EnemyBasic extends Phaser.Sprite {
 
   reverseDirection(enemyNav) {
     if (enemyNav.body.position.x > this.body.position.x) {
-      this.body.velocity.set(-this.initVelocity.x, this.initVelocity.y);
-
+      this.body.velocity.set(-Math.abs(this.initVelocity.x), this.initVelocity.y);
     }
     else {
-      this.body.velocity.set(this.initVelocity.x, this.initVelocity.y);
-
+      this.body.velocity.set(Math.abs(this.initVelocity.x), this.initVelocity.y);
     }
   }
 
