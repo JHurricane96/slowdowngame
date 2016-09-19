@@ -48,7 +48,7 @@ class Preloader extends Phaser.State {
     this.game.load.image('snowobstacle','assets/snow.jpg',110,108);
     this.game.load.image('vanishingobstacle','assets/block.jpg',110,108);
     this.game.load.image('desert','assets/desert2.jpg',3508,2480);
-    this.game.load.image('bullet2','assets/bullet2.jpg',25,25);
+    this.game.load.image('bullet2','assets/bullet2.png',25,25);
 
     this.game.load.image('platform','assets/platform2.png',30,27);
     this.game.load.image('background','assets/backdrop2.jpg',1920,1080);
