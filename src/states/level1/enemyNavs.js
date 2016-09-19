@@ -1,82 +1,106 @@
 const enemyNavs = [
 	{
-		x: 1071,
-		y: 608,
-		width: 10,
-		height: 10
+		x: 1065,
+		y: 570,
+		width: 50,
+		height: 50
 	},
 	{
 		x: 2479,
-		y: 608,
-		width: 10,
-		height: 10
+		y: 570,
+		width: 50,
+		height: 50
 	},
 	{
-		x: 871,
-		y: 258,
-		width: 10,
-		height: 10
+		x: 872,
+		y: 219,
+		width: 50,
+		height: 50
 	},
 	{
-		x: 2165,
-		y: 258,
-		width: 10,
-		height: 10
+		x: 2180,
+		y: 219,
+		width: 50,
+		height: 50
 	},
 	{
 		x: 2621,
-		y: 938,
-		width: 10,
-		height: 10
+		y: 900,
+		width: 50,
+		height: 50
 	},
 	{
 		x: 3779,
-		y: 938,
-		width: 10,
-		height: 10
+		y: 899,
+		width: 50,
+		height: 50
 	},
 	{
 		x: 3921,
-		y: 938,
+		y: 899,
 		width: 10,
 		height: 10
 	},
 	{
 		x: 7179,
-		y: 938,
-		width: 10,
-		height: 10
+		y: 900,
+		width: 50,
+		height: 50
 	},
 	{
-		x: 6385,
-		y: 358,
-		width: 10,
-		height: 10
+		x: 6384,
+		y: 320,
+		width: 50,
+		height: 50
 	},
 	{
 		x: 5471,
-		y: 358,
-		width: 10,
-		height: 10
+		y: 320,
+		width: 50,
+		height: 50
 	},
 	{
-		x: 7321,
-		y: 938,
-		width: 10,
-		height: 10
-	},
-	{
-		x: 7829,
-		y: 938,
-		width: 10,
-		height: 10
-	},
-	{
-		x: 11400,
+		x: 7970,
 		y: 900,
-		width:100,
-		height: 80
-	}
+		width: 50,
+		height: 50
+	},
+	{
+		x: 8979,
+		y: 899,
+		width: 50,
+		height: 50
+	},
+	{
+		x: 9522,
+		y: 899,
+		width:50,
+		height: 50
+	},
+	{
+		x: 11379,
+		y: 899,
+		width:50,
+		height: 50
+	},
+	{
+		x: 12090,
+		y: 899,
+		width:50,
+		height: 50
+	},
+	{
+		x: 13024,
+		y: 899,
+		width:50,
+		height: 50
+	},
+	{
+		x: 9522,
+		y: 899,
+		width:50,
+		height: 50
+	},
 ];
 
 export default enemyNavs;
