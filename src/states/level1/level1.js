@@ -38,15 +38,14 @@ class Level1 extends Phaser.State {
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
 
-    this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
-    this.game.add.image(0, 0, this.bitmap);
+    this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
+    this.bitmapImg = this.bitmap.addToWorld(0, 0);
   	this.game.stage.backgroundColor = "#02AEF0";
     this.player = new Player(this.game, 500, this.game.world.centerY);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
-    //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
-    sword.y -= sword.height / 2;
+    sword.x += sword.width / 2;
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
@@ -102,12 +101,10 @@ class Level1 extends Phaser.State {
     }
     
     this.goals = [];
-    this.lvlComplete = [];
     for (const goal of goals) {
       const newGoal = new Goal(this.game, goal.x, goal.y, goal.width, goal.height, "goal");
       this.game.add.existing(newGoal);
-      this.goals.push(newGoal);
-      this.lvlComplete.push(newGoal);   
+      this.goals.push(newGoal);   
     }
     this.enemyNavs = [];
     for (const enemyNav of enemyNavs) {
@@ -131,6 +128,8 @@ class Level1 extends Phaser.State {
 }
   //Code ran on each frame of game
   update() {
+    this.bitmapImg.x = this.game.camera.x;
+    this.bitmapImg.y = this.game.camera.y;
     this.handleBulletCollisions();
     this.player.isGrounded = false;
     this.game.physics.arcade.collide(this.player, this.obstacles, (player, obstacle) => {
@@ -143,7 +142,8 @@ class Level1 extends Phaser.State {
     this.game.physics.arcade.collide(this.player, this.satellites, (player, satellites) => {
       player.setVel(player,8000,23000);
     });
-    this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
+    this.game.physics.arcade.collide(this.goals, this.player, () => {
+      this.game.advanceLevel();
       this.game.state.start('dialogL1');
     }, null, this);
 
@@ -188,12 +188,12 @@ class Level1 extends Phaser.State {
 
   //Draws LOS's to player
   drawLines(linesToPlayer) {
-    this.bitmap.context.clearRect(0, 0, this.world.width, this.world.height);
+    this.bitmap.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (const line of linesToPlayer) {
       this.bitmap.context.strokeStyle = "red";
       this.bitmap.context.beginPath();
-      this.bitmap.context.moveTo(line.start.x, line.start.y);
-      this.bitmap.context.lineTo(line.end.x, line.end.y);
+      this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
+      this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
       this.bitmap.context.stroke();
     }
     this.bitmap.dirty = true;

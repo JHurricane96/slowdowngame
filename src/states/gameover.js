@@ -15,7 +15,12 @@ class Gameover extends Phaser.State {
       this.game.state.start("dialogIntro");
     });
     document.getElementById("gameoverresumebutton").addEventListener("click", () => {
-      this.game.state.start("level" + this.game.global.level);
+      if (this.game.global.level === 4) {
+        this.game.state.start("cold");
+      }
+      else {
+        this.game.state.start("level" + this.game.global.level);
+      }
     });
   }
 
