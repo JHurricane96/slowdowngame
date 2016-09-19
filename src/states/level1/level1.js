@@ -38,8 +38,8 @@ class Level1 extends Phaser.State {
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
 
-    this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
-    this.game.add.image(0, 0, this.bitmap);
+    this.bitmap = this.game.add.bitmapData(window.innerWidth, window.innerHeight);
+    this.bitmapImg = this.bitmap.addToWorld(0, 0);
   	this.game.stage.backgroundColor = "#02AEF0";
     this.player = new Player(this.game, 500, this.game.world.centerY);
     this.game.add.existing(this.player);
@@ -129,6 +129,8 @@ class Level1 extends Phaser.State {
 }
   //Code ran on each frame of game
   update() {
+    this.bitmapImg.x = this.game.camera.x;
+    this.bitmapImg.y = this.game.camera.y;
     this.handleBulletCollisions();
     this.player.isGrounded = false;
     this.game.physics.arcade.collide(this.player, this.obstacles, (player, obstacle) => {
@@ -187,12 +189,12 @@ class Level1 extends Phaser.State {
 
   //Draws LOS's to player
   drawLines(linesToPlayer) {
-    this.bitmap.context.clearRect(0, 0, this.world.width, this.world.height);
+    this.bitmap.context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     for (const line of linesToPlayer) {
       this.bitmap.context.strokeStyle = "red";
       this.bitmap.context.beginPath();
-      this.bitmap.context.moveTo(line.start.x, line.start.y);
-      this.bitmap.context.lineTo(line.end.x, line.end.y);
+      this.bitmap.context.moveTo(line.start.x - this.game.camera.x, line.start.y - this.game.camera.y);
+      this.bitmap.context.lineTo(line.end.x - this.game.camera.x, line.end.y - this.game.camera.y);
       this.bitmap.context.stroke();
     }
     this.bitmap.dirty = true;
