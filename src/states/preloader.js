@@ -59,7 +59,7 @@ class Preloader extends Phaser.State {
   }
 
   onLoadComplete() {
-    this.game.state.start('loginpage');
+    this.game.state.start('level1');
   }
 }
 

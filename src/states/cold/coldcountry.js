@@ -33,8 +33,8 @@ class Coldcountry extends Phaser.State {
   //Load operations (uses Loader), method called first
   preload() {
 
-    this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
-    this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+    //this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
+    //this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
   }
 
   //Setup code, method called after preload
@@ -54,16 +54,18 @@ class Coldcountry extends Phaser.State {
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
     var bgm = this.game.add.audio('coldbgm');
-
       var loudbang = this.game.add.audio('loudbang');
-    var raygun = this.game.add.audio('raygun');
-    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
-      var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
-    key.raygun.onDown.add(() => { raygun.play(); }, this);
+      var raygun = this.game.add.audio('raygun');
+
+
+
+      this.game.sound.setDecodedCallback([ loudbang,raygun ], () => {
+          var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+      key.raygun.onDown.add(() => { raygun.play(); }, this);
   }, this);
-    this.game.sound.setDecodedCallback([ bgm ], () => {
-      bgm.loopFull();
-      }, this);
+      this.game.sound.setDecodedCallback([ bgm ], () => {
+          bgm.loopFull();
+  }, this);
 
     this.score=new Score(this.game);
 
