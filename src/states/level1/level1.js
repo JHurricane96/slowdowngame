@@ -144,6 +144,7 @@ class Level1 extends Phaser.State {
     });
     this.game.physics.arcade.collide(this.goals, this.player, () => {
       this.game.advanceLevel();
+      this.game.sound.stopAll();
       this.game.state.start('dialogL1');
     }, null, this);
 

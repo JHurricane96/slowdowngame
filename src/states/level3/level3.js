@@ -161,7 +161,8 @@ class Level1 extends Phaser.State {
 
     this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
       this.score.advanceLevel();
-    	this.game.state.start('cold');
+      this.game.sound.stopAll();
+      this.game.state.start('dialogL3');
     }, null, this);
 
     const remainingEnemies = [];
