@@ -10,7 +10,7 @@
  import Preloader from './states/preloader';
  import DialogL1 from './states/dialogL1';
  import DialogL2 from './states/dialogL2';
- import DialogL3 from './states/dialogL3';
+ import DialogL3 from './states/DialogL3';
  import DialogL4 from './states/dialogL4';
  import Leaderboard from './states/leaderboard';
  import Loginpage from './states/loginpage';
