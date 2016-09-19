@@ -141,10 +141,10 @@ class EnemyBoomerang extends Phaser.Sprite {
 
   reverseDirection(enemyNav) {
     if (enemyNav.body.position.x > this.body.position.x) {
-      this.body.velocity.set(-this.initVelocity.x, this.initVelocity.y);
+      this.body.velocity.set(-Math.abs(this.initVelocity.x), this.initVelocity.y);
     }
     else {
-      this.body.velocity.set(this.initVelocity.x, this.initVelocity.y);
+      this.body.velocity.set(Math.abs(this.initVelocity.x), this.initVelocity.y);
     }
   }
 
