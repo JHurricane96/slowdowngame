@@ -44,9 +44,8 @@ class Level1 extends Phaser.State {
     this.player = new Player(this.game, 500, this.game.world.centerY);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
-    //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
     const sword = new Sword(this.game, Math.abs(this.player.width / 2), this.player.height / 2);
-    sword.y -= sword.height / 2;
+    sword.x += sword.width / 2;
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
