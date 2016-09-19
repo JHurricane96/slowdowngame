@@ -8,9 +8,9 @@ const obstacles = [
 	},
 	{
 		x: 600,
-		y: 550,
+		y: 450,
 		width: 80,
-		height: 150
+		height: 250
 
 	},
 	{
@@ -53,13 +53,6 @@ const obstacles = [
 		x: 800,
 		y: 800,
 		width: 70,
-		height: 40
-
-	},
-	{
-		x: 500,
-		y: 400,
-		width: 150,
 		height: 40
 
 	},

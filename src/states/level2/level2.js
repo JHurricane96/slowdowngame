@@ -71,12 +71,14 @@ class Level2 extends Phaser.State {
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
+
+    /*
     this.traps = [];
     for (const obstacle of traps) {
       const newTrap = new Trap(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
       this.game.add.existing(newTrap);
       this.traps.push(newTrap);
-    }
+    }*/
 
     this.enemyNavs = [];
     for (const enemyNav of enemyNavs) {
@@ -88,7 +90,6 @@ class Level2 extends Phaser.State {
     this.enemies = [];
     for (const enemy of enemies) {
       const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel);
-      //newEnemy.weapon = this.game.add.weapon(2, "bullet2");
       newEnemy.cacheObstacles(this.obstacles);
       newEnemy.cachePlayer(this.player);
       this.game.add.existing(newEnemy);
