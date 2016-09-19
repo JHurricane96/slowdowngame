@@ -177,7 +177,7 @@ class Level1 extends Phaser.State {
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
         this.game.state.start("gameover");
-        
+        this.score.die(); 
         this.game.sound.stopAll();
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
