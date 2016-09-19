@@ -19,7 +19,7 @@ class DialogL4 extends Dialog {
       `The world was glad their "Tyrant King" had died, and rejoiced.`,
       `There was peace, at last.`
     ];
-    this.nextLevel = "gameover";
+    this.nextLevel = "resumepage";
   }
 
   //Load operations (uses Loader), method called first
