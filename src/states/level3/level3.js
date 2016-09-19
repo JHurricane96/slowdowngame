@@ -100,7 +100,7 @@ class Level1 extends Phaser.State {
 
     this.enemies = [];
     for (const enemy of enemies) {
-      const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel);
+      const newEnemy = new EnemyBasic(this.game, enemy.x, enemy.y, enemy.vel, "bullet");
       newEnemy.cacheObstacles(this.obstacles);
       newEnemy.cachePlayer(this.player);
       this.game.add.existing(newEnemy);
