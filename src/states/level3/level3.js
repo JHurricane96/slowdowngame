@@ -42,17 +42,22 @@ class Level1 extends Phaser.State {
     //this.game.add.image(0, 0, this.bitmap);
     this.bitmapImg = this.bitmap.addToWorld(0, 0);
 
+    var bgm = this.game.add.audio('forestBgm');
+
+    //bgm.play();
+
     this.score=new Score(this.game);
 
     var raygun = this.game.add.audio('raygun');
     var loudbang = this.game.add.audio('loudbang');
 
     this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
-    var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
-
-    key.raygun.onDown.add(() => { raygun.play(); }, this);
-
-  }, this);
+        var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+        key.raygun.onDown.add(() => { raygun.play(); }, this);
+      this.game.sound.setDecodedCallback([ bgm ], () => {
+        bgm.loopFull();
+      }, this);        
+    }, this);
 
     this.player = new Player(this.game, 900, 7000 - 200);
     this.game.add.existing(this.player);
@@ -72,14 +77,14 @@ class Level1 extends Phaser.State {
       else if (obstacle.type == "floor")
       	var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "floor");
       else if(obstacle.type == "top")
-		var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "top");      
-	  else {
-	  	if(obstacle.width == 200) 
-		  var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leaves");
-		else var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leavesSmall");
-        newObstacle.body.checkCollision.down = false;
-        newObstacle.body.checkCollision.left = false;
-        newObstacle.body.checkCollision.right = false;
+		    var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "top");      
+  	  else {
+  	  	if(obstacle.width == 200) 
+  		  var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leaves");
+  		else var newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "leavesSmall");
+          newObstacle.body.checkCollision.down = false;
+          newObstacle.body.checkCollision.left = false;
+          newObstacle.body.checkCollision.right = false;
 	  }
 
       this.game.add.existing(newObstacle);
@@ -142,6 +147,7 @@ class Level1 extends Phaser.State {
     this.game.physics.arcade.collide(this.player, this.fires, (player, fires) => {
         this.score.die();
         this.game.state.start("gameover");
+        this.game.sound.stopAll();
       }, null, this);
 
     this.game.physics.arcade.collide(this.enemies, this.obstacles);
@@ -196,6 +202,7 @@ class Level1 extends Phaser.State {
         bullet.kill();
         this.score.die();
         this.game.state.start("gameover");
+          this.game.sound.stopAll();
       }, null, this);
 
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
@@ -209,6 +216,7 @@ class Level1 extends Phaser.State {
         bullet.kill();
         this.score.die();
         this.game.state.start("gameover");
+          this.game.sound.stopAll();
       }, null, this);    	
       
       this.game.physics.arcade.collide(waveEnemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
