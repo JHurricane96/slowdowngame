@@ -137,7 +137,14 @@ class EnemyBasic extends Phaser.Sprite {
   }
 
   reverseDirection(enemyNav) {
-    this.body.velocity.set(-this.initVelocity.x, this.initVelocity.y);
+    if (enemyNav.body.position.x > this.body.position.x) {
+      this.body.velocity.set(-this.initVelocity.x, this.initVelocity.y);
+
+    }
+    else {
+      this.body.velocity.set(this.initVelocity.x, this.initVelocity.y);
+
+    }
   }
 
   //Called when game is paused
