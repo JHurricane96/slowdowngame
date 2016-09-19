@@ -30,7 +30,7 @@ const game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO,
  game.state.add('preloader', new Preloader());
  game.state.add('dialogL1', new DialogL1());
  game.state.add('dialogL2', new DialogL2());
- game.state.add('dialogL3', new DialogL3());
+ game.state.add('DialogL3', new DialogL3());
  game.state.add('dialogL4', new DialogL4());
  game.state.add('leaderboard', new Leaderboard());
  game.state.add('loginpage', new Loginpage());
