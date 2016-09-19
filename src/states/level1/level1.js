@@ -7,6 +7,8 @@ import Crate from "../../prefabs/crate";
 import Building from "../../prefabs/building";
 import Satellite from "../../prefabs/satellite";
 import Goal from "../../prefabs/goal";
+import Score from "../../utils/scoreboard";
+
 import obstacles from "./obstacles";
 import enemyNavs from "./enemyNavs";
 import enemies from "./enemies";
@@ -14,7 +16,6 @@ import crates from "./crates";
 import buildings from "./buildings";
 import satellites from "./satellites";
 import goals from "./goals";
-import Scoreboard from "../../utils/scoreboard";
 
 //Documentation for Phaser's (2.5.0) states:: phaser.io/docs/2.5.0/Phaser.State.html
 class Level1 extends Phaser.State {
@@ -27,22 +28,22 @@ class Level1 extends Phaser.State {
 
   //Load operations (uses Loader), method called first
   preload() {
-
+     this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
+     this.game.load.audio('raygun', '../../../assets/audio/dropSword.mp3');
+     this.game.load.audio('urBGM',"../../../assets/audio/lv1.mp3");
   }
 
   //Setup code, method called after preloa
   create() {
-    this.game.world.setBounds(0, 0, 19200, 1080);
+    this.game.world.setBounds(0, 0, 14800, 1080);
     this.world.width = 1920;
     this.world.height = 1080;
     this.game.physics.arcade.gravity.y = 1400;
 
     this.bitmap = this.game.add.bitmapData(this.world.width, this.world.height);
     this.game.add.image(0, 0, this.bitmap);
-
-    this.scoreboard = new Scoreboard(this.game);
-
-    this.player = new Player(this.game, 9000, this.game.world.centerY*0);
+  	this.game.stage.backgroundColor = "#02AEF0";
+    this.player = new Player(this.game, 9800, this.game.world.centerY*0);
     this.game.add.existing(this.player);
     this.game.camera.follow(this.player, Phaser.Camera.FOLLOW_TOPDOWN);
     //const sword = new Sword(this.game, this.player.body.position.x + this.player.width, this.player.body.position.y);
@@ -51,24 +52,40 @@ class Level1 extends Phaser.State {
     sword.kill();
     this.player.sword = sword;
     this.player.addChild(sword);
+    this.score = new Score(this.game);
     //this.game.add.existing(sword);
+    var loudbang = this.game.add.audio('loudbang');
+    var raygun = this.game.add.audio('raygun');
+    var urBGM=this.game.add.audio('urBGM');
+
+ 	this.game.sound.setDecodedCallback([ urBGM ], () => {
+      alert(works);	
+      urBGM.loopFull();
+      },this);
+
+
+    this.game.sound.setDecodedCallback([ raygun , loudbang ], () => {
+    var key = this.game.input.keyboard.addKeys({ raygun: Phaser.Keyboard.X });
+    key.raygun.onDown.add(() => { raygun.play(); }, this);
+  }, this);
+
     this.satellites = [];
     for (const satellite of satellites) {
-      const newSatellite = new Satellite(this.game, satellite.x, satellite.y, satellite.width, satellite.height, "crosshairs");
+      const newSatellite = new Satellite(this.game, satellite.x, satellite.y, satellite.width, satellite.height, "crossbow");
       this.game.add.existing(newSatellite);
       this.satellites.push(newSatellite);
     }
 
     this.obstacles = [];
     for (const obstacle of obstacles.slice(0,16)) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
+      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "brick");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
     
     this.obstacles = [];
     for (const obstacle of obstacles) {
-      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "crosshairs");
+      const newObstacle = new Obstacle(this.game, obstacle.x, obstacle.y, obstacle.width, obstacle.height, "brick");
       this.game.add.existing(newObstacle);
       this.obstacles.push(newObstacle);
     }
@@ -81,7 +98,7 @@ class Level1 extends Phaser.State {
     }
     this.buildings = [];
     for (const building of buildings) {
-      const newBuilding = new Building(this.game, building.x, building.y, building.width, building.height, "crosshairs");
+      const newBuilding = new Building(this.game, building.x, building.y, building.width, building.height, "building");
       this.game.add.existing(newBuilding);
       this.buildings.push(newBuilding);
     }
@@ -89,7 +106,7 @@ class Level1 extends Phaser.State {
     this.goals = [];
     this.lvlComplete = [];
     for (const goal of goals) {
-      const newGoal = new Goal(this.game, goal.x, goal.y, goal.width, goal.height, "block2");
+      const newGoal = new Goal(this.game, goal.x, goal.y, goal.width, goal.height, "goal");
       this.game.add.existing(newGoal);
       this.goals.push(newGoal);
       this.lvlComplete.push(newGoal);   
@@ -129,7 +146,6 @@ class Level1 extends Phaser.State {
       player.setVel(player,8000,23000);
     });
     this.game.physics.arcade.collide(this.lvlComplete, this.player, () => {
-      this.scoreboard.advanceLevel();
       this.game.state.start('dialogL1');
     }, null, this);
 
@@ -140,13 +156,14 @@ class Level1 extends Phaser.State {
     for (const enemy of this.enemies) {
       if (this.game.physics.arcade.overlap(this.player.sword, enemy, (sword, enemy) => {
           enemy.eliminate();
-          this.scoreboard.killEnemy("basic");
+          this.score.killEnemy("basic");
+
         }) === false) {
         remainingEnemies.push(enemy);
       }
     }
     //this.game.physics.arcade.collide(this.player, this.enemies);
-
+    console.log(this.player.position);
     const linesToPlayer = [];
     for (const enemy of this.enemies) {
       if (enemy.losToPlayer !== null && enemy.isShooting === false) {
@@ -162,7 +179,6 @@ class Level1 extends Phaser.State {
     for (const enemy of this.enemies) {
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.player, (player, bullet) => {
         bullet.kill();
-        this.scoreboard.die();
         this.game.state.start("gameover");
       }, null, this);
       this.game.physics.arcade.collide(enemy.weapon.bullets, this.obstacles, (obstacle, bullet) => {
