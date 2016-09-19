@@ -56,10 +56,11 @@ class Preloader extends Phaser.State {
     this.game.load.audio('loudbang', '../../../assets/audio/loudBang.mp3');
     this.game.load.audio('bgm', '../../../assets/audio/desert.mp3');
     this.game.load.audio('coldbgm','assets/Blue-Ridge.mp3');
+    this.game.load.audio('forestBgm','assets/audio/Lost-Jungle.mp3');
   }
 
   onLoadComplete() {
-    this.game.state.start('loginpage');
+    this.game.state.start('level3');
   }
 }
 

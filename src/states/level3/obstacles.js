@@ -308,16 +308,16 @@ const obstacles = [
     },
     {
         x : 2570,
-        y : height - 2875,
+        y : height - 2925,
         width : 5,
-        height : 125,
+        height : 175,
         type: "tree"
     },   
     {
         x : 2500,
         y : height - 3300,
         width : 75,
-        height : 425,
+        height : 375,
         type: "tree"
     }, 
     {//5 end
@@ -383,7 +383,7 @@ const obstacles = [
         x : 1850,
         y : height - 3750,
         width : 200 ,
-        height : 425,
+        height :375,
         type: "tree"
     },
     {//BRANCHES

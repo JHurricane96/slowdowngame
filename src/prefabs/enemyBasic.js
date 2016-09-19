@@ -14,7 +14,7 @@ class EnemyBasic extends Phaser.Sprite {
     this.initVelocity = initVelocity;
     this.raycaster = new Raycaster();
     this.losToPlayer = null;
-    this.maxTimeToFire = 600; //In milliseconds
+    this.maxTimeToFire = 800; //In milliseconds
     this.timeToFire = Infinity;
     this.maxTimeToSee = 400; //In milliseconds
     this.timeToSee = Infinity;
@@ -26,7 +26,7 @@ class EnemyBasic extends Phaser.Sprite {
 
     this.weapon = game.add.weapon(2, "bullet");
     this.weapon.bulletKillType = Phaser.Weapon.KILL_CAMERA_BOUNDS;
-    this.weapon.bulletSpeed = 3000;
+    this.weapon.bulletSpeed = 2000;
     this.weapon.bulletGravity.set(0);
     this.weapon.trackSprite(this, this.width/2 , this.height/2);
   }
