@@ -33,6 +33,10 @@ class Preloader extends Phaser.State {
     this.game.load.spritesheet('panda','assets/pandawalk.png', 41.75,80.5);
     this.game.load.audio('bullet', '../../assets/audio/bullet.mp3');
     this.game.load.spritesheet('fire','../../assets/fire.png',37,50);
+    this.game.load.image('crate','assets/crate.jpg');
+    this.game.load.image("building","../../assets/building.jpg");
+    this.game.load.image("brick","../../assets/brick.jpg");
+    this.game.load.image('crossbow',"assets/crossbow2.png");
     //this.game.load.image('fire2',)
     this.game.load.spritesheet('enemybasic','assets/normalenemy1backup.png',39.33,70);
     this.game.load.spritesheet('waveenemy','assets/waveenemybackup.png',39.33,70);
